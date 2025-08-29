@@ -4,7 +4,10 @@ import { PersonalAppFrontCdkStack } from '../lib/personal_app_front_cdk-stack';
 import { FrontendPipelineStack } from './pipeline';
 
 const app = new cdk.App();
-const ENVIRONMENT = {'account': app.node.tryGetContext('AWS_ACCOUNT'), 'region': app.node.tryGetContext('AWS_REGION')};
+const ENVIRONMENT = {
+    'account': process.env.AWS_ACCOUNT, 
+    'region': process.env.AWS_REGION
+};
 if (!ENVIRONMENT['account'] || !ENVIRONMENT['region']) {
     throw new Error(`CDK context ${
         !ENVIRONMENT['account'] && !ENVIRONMENT['region'] ? 'account and region' :
