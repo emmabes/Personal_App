@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       # Navigates into the frontend directory and installs dependencies
-      - cd PersonalAppFrontend/
+      - cd PersonalAppFront/PersonalAppFrontend
       - npm install
   build:
     commands:
@@ -14,4 +14,4 @@ artifacts:
   files:
     # Specifies the files that will be deployed
     - '**/*'
-  base-directory: 'PersonalAppFrontend/dist' # or 'build' depending on your build tool
+  base-directory: 'PersonalAppFront/PersonalAppFrontend/dist' # or 'build' depending on your build tool
