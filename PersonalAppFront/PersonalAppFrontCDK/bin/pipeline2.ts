@@ -31,7 +31,7 @@ export class FrontendPipelineStack extends cdk.Stack {
             resources: [`arn:aws:secretsmanager:${this.region}:${this.account}:secret:personal_app_frontend_pipeline_token`],
         });
         const buildProject = new PipelineProject(this, 'PersonalAppFrontPipeline', {
-            buildSpec: BuildSpec.fromSourceFilename('../buildspec.yml')
+            buildSpec: BuildSpec.fromSourceFilename('buildspec.yml')
         });
         buildProject.grantPrincipal.addToPrincipalPolicy(
             new PolicyStatement({
