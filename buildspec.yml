@@ -2,6 +2,8 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 20
     commands:
       # Navigates into the frontend directory and installs dependencies
       - cd PersonalAppFront/PersonalAppFrontend
