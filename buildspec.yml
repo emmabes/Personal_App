@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # Navigates into the frontend directory and installs dependencies
+      - cd PersonalAppFrontend/
+      - npm install
+  build:
+    commands:
+      # Builds the static frontend assets
+      - npm run build
+artifacts:
+  files:
+    # Specifies the files that will be deployed
+    - '**/*'
+  base-directory: 'PersonalAppFrontend/dist' # or 'build' depending on your build tool

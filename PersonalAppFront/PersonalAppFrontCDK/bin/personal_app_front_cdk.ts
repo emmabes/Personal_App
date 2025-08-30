@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
 import { PersonalAppFrontCdkStack } from '../lib/personal_app_front_cdk-stack';
-import { FrontendPipelineStack } from './pipeline';
+import { FrontendPipelineStack } from './pipeline2';
 
 const app = new cdk.App();
 const ENVIRONMENT = {
