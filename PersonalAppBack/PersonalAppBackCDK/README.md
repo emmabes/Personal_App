@@ -54,5 +54,6 @@ command.
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
+ * `cdk deploy -a "python pipeline_app.py" BackendPipelineStack` for deploying the pipeline
 
 Enjoy!

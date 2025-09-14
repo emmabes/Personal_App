@@ -1,0 +1,68 @@
+{
+    "folders": [
+        { 
+            "name": "Personal App Home",
+            "path": "./"
+        },
+        {
+            "name": "Frontend Infra CDK TypeScript",
+            "path": "./PersonalAppFront/PersonalAppFrontCDK"
+        },
+        {
+            "name": "Frontend React",
+            "path": "./PersonalAppFront/PersonalAppFrontend"
+        },
+        {
+            "name": "Backend Infra CDK Python",
+            "path": "./PersonalAppBack/PersonalAppBackCDK"
+        },
+        {
+            "name": "Backend Python",
+            "path": "./PersonalAppBack/PersonalAppBackend"
+        }
+    ],
+    "settings": {
+        // python backend settings
+        "[python]": {
+            "editor.defaultFormatter": "ms-python.black-formatter",
+            "editor.formatOnSave": true
+        },
+        /* set python interpreter
+        using one primary environment is easier than setting multiple directories.
+        find by running `which python` or `which python3` in your virtual env. */
+        "python.defaultInterpreterPath": "./PersonalAppBack/PersonalAppBackCDK/.venv/Scripts/python.exe",
+
+
+        // typescript settings
+        "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[typescriptreact]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[javascriptreact]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+
+
+        // workspace settings
+        // Hide node_modules and other clutter from the file explorer for a cleaner view
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "**/node_modules": true,
+            "**/__pycache__": true
+        }
+    }
+}
