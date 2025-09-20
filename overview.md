@@ -56,6 +56,8 @@ Here is a summary of our accomplishments in a checklist format.
     🐛 **Issues**: Ensuring the pipeline follows AWS best practices and can scale to support multi-stage deployments, automated testing, and security scanning.
     🚀 **Resolution**: Implemented CDK Pipelines pattern with self-mutation enabled, stage-based deployment architecture, and proper separation of concerns between pipeline and application infrastructure.
 
+CloudFrontDomainName = dthzzwznmie2q.cloudfront.net
+
 ---
 
 ### Next Steps

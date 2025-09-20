@@ -1,0 +1,15 @@
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre_build:
+    commands:
+      - cd PersonalAppFront/PersonalAppFrontend
+      - npm install
+      - export BUCKET_NAME=erikmabes-com-$(aws sts get-caller-identity --query Account --output text)
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - aws s3 sync dist/ s3://$BUCKET_NAME/ --delete
