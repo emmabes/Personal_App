@@ -1,19 +1,21 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
-      nodejs: 20
+      nodejs: 18
+  pre_build:
     commands:
-      # Navigates into the frontend directory and installs dependencies
+      - pwd
+      - ls -la
+      - find . -name "PersonalAppFrontend" -type d
       - cd PersonalAppFront/PersonalAppFrontend
       - npm install
+      - export BUCKET_NAME=erikmabes-com-$(aws sts get-caller-identity --query Account --output text)
   build:
     commands:
-      # Builds the static frontend assets
+      - pwd
+      - ls -la
       - npm run build
-artifacts:
-  files:
-    # Specifies the files that will be deployed
-    - '**/*'
-  base-directory: 'PersonalAppFront/PersonalAppFrontend/dist' # or 'build' depending on your build tool
+  post_build:
+    commands:
+      - aws s3 sync dist/ s3://$BUCKET_NAME/ --delete
