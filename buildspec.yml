@@ -2,20 +2,23 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 20
   pre_build:
     commands:
-      - pwd
-      - ls -la
-      - find . -name "PersonalAppFrontend" -type d
       - cd PersonalAppFront/PersonalAppFrontend
       - npm install
       - export BUCKET_NAME=erikmabes-com-$(aws sts get-caller-identity --query Account --output text)
   build:
     commands:
-      - pwd
-      - ls -la
       - npm run build
+      - echo "Build completed, checking dist folder:"
+      - ls -la dist/assets/
+      - echo "Contents of dist/index.html:"
+      - head -10 dist/index.html
   post_build:
     commands:
+      - echo "Syncing to S3 bucket - $BUCKET_NAME"
       - aws s3 sync dist/ s3://$BUCKET_NAME/ --delete
+      - echo "S3 sync completed"
+
+

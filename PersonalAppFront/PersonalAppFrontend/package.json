@@ -11,17 +11,17 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
     "@eslint/js": "^9.33.0",
     "@testing-library/jest-dom": "^6.8.0",
-    "@testing-library/react": "^16.3.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
+    "@testing-library/react": "^14.3.1",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^5.0.0",
     "babel-jest": "^30.1.2",
     "eslint": "^9.33.0",
@@ -48,16 +48,5 @@
       "\\.(css|less|scss|sass)$": "identity-obj-proxy",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
     }
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      [
-        "@babel/preset-react",
-        {
-          "runtime": "automatic"
-        }
-      ]
-    ]
   }
 }
