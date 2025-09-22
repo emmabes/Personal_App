@@ -1,4 +1,5 @@
 import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import {
   CfnCloudFrontOriginAccessIdentity,
   CfnDistribution,
@@ -14,7 +15,7 @@ import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
 export class FrontendStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, certificate: Certificate, props?: StackProps) {
     super(scope, id, props);
 
     const siteBucket = new Bucket(this, "SiteBucket", {
@@ -40,7 +41,7 @@ export class FrontendStack extends Stack {
           allowedMethods: ["GET", "HEAD", "OPTIONS"],
           // Use legacy TTL settings for short cache
           minTtl: 0,
-          defaultTtl: 300, // 5 minutes
+          defaultTtl: 180, // 5 minutes
           maxTtl: 300,
           forwardedValues: {
             queryString: false,
@@ -52,7 +53,7 @@ export class FrontendStack extends Stack {
             pathPattern: "/assets/*",
             targetOriginId: "s3-origin-id",
             viewerProtocolPolicy: "redirect-to-https",
-            cachePolicyId: "658327ea-f89d-4fab-a63d-7e88639e58f6", // Managed-CachingOptimized
+            cachePolicyId: "4135ea2d-6df8-44a3-9df3-4b5a84be39ad", // Disabling Caching during development; reistate optimized with "658327ea-f89d-4fab-a63d-7e88639e58f6"
           },
         ],
         origins: [
@@ -70,6 +71,11 @@ export class FrontendStack extends Stack {
             },
           },
         ],
+        aliases: ['erikmabes.com', 'www.erikmabes.com', 'ericmabes.com', 'www.ericmabes.com'],
+        viewerCertificate: certificate ? {
+          acmCertificateArn: certificate.certificateArn,
+          sslSupportMethod: 'sni-only',
+        } : undefined,
       },
     });
 

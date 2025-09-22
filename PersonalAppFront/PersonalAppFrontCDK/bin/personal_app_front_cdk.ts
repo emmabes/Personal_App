@@ -37,6 +37,7 @@ const certificateStack = new CertificateStack(app, "CertificateStack", {
 const frontendStack = new PersonalAppFrontCdkStack(
   app,
   "PersonalAppFrontCdkStack",
+  certificateStack.certificate,
   {
     env: ENVIRONMENT,
     certificate: certificateStack.certificate,

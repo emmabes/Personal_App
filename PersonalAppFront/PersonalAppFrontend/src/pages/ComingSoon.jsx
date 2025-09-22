@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.css";
 
 import homelogo from "../assets/homepage - no background.png";
-import Motivator from "../components/motivator";
+import Motivator from "../components/Motivator";
 
 function ComingSoon() {
   const [count, setCount] = useState(0);

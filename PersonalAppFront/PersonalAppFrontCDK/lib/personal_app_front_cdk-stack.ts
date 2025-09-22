@@ -5,7 +5,7 @@ import {
   BucketEncryption,
 } from "aws-cdk-lib/aws-s3";
 import { RemovalPolicy, CfnOutput, Stack, StackProps, Aws } from "aws-cdk-lib";
-import { ICertificate } from "aws-cdk-lib/aws-certificatemanager";
+import { Certificate, ICertificate } from "aws-cdk-lib/aws-certificatemanager";
 import { Distribution, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 import { S3StaticWebsiteOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
 
@@ -17,6 +17,7 @@ export class PersonalAppFrontCdkStack extends Stack {
   constructor(
     scope: Construct,
     id: string,
+    certificate: Certificate, 
     props: PersonalAppFrontCdkStackProps
   ) {
     super(scope, id, props);
