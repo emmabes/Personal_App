@@ -1,0 +1,113 @@
+.sticky-note-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticky-note {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  font-family: 'Bulgatti';
+  font-size: 35px;
+  line-height: 1.3;
+  color: #333;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  
+  /* Crumpled sticky note effect */
+  box-shadow: 
+    0 4px 8px rgba(0,0,0,0.15),
+    inset 0 0 20px rgba(0,0,0,0.05),
+    inset 5px 5px 10px rgba(0,0,0,0.03);
+  
+  /* Rough edges */
+  clip-path: polygon(
+    2% 0%, 98% 1%, 99% 4%, 97% 8%, 100% 12%, 
+    98% 98%, 95% 99%, 92% 97%, 4% 98%, 
+    1% 95%, 0% 92%, 2% 4%
+  );
+  
+  /* Glide in animation */
+  animation: glideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.sticky-note:hover {
+  transform: rotate(0deg) scale(1.02);
+  transition: all 0.3s ease;
+}
+
+/* Color variants */
+.sticky-note.yellow {
+  background: linear-gradient(135deg, #fff3a0 0%, #fed766 100%);
+}
+
+.sticky-note.pink {
+  background: linear-gradient(135deg, #ffc0cb 0%, #ff69b4 100%);
+}
+
+.sticky-note.blue {
+  background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+}
+
+.sticky-note.green {
+  background: linear-gradient(135deg, #98fb98 0%, #32cd32 100%);
+}
+
+.sticky-note.orange {
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+}
+
+.sticky-note.purple {
+  background: linear-gradient(135deg, #dda0dd 0%, #9370db 100%);
+}
+
+@keyframes glideIn {
+  0% {
+    transform: translateX(-400px) translateY(-50px) rotate(-15deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(20px) translateY(10px) rotate(-5deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(-2deg);
+    opacity: 1;
+  }
+}
+
+@font-face {
+    font-family: 'Motterdam';
+    src: url('../fonts/Motterdam-K74zp.ttf'),
+         url('../fonts/Motterdam-MVanr.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Bulgatti';
+    src: url('../fonts/Bulgatti-xgMV.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Halimun';
+    src: url('../fonts/Halimun-W7jn.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HelloKetta';
+    src: url('../fonts/HelloKetta-d99oX.ttf');
+    font-weight: normal;
+    font-style: normal;
+}

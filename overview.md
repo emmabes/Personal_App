@@ -56,13 +56,19 @@ Here is a summary of our accomplishments in a checklist format.
     🐛 **Issues**: Ensuring the pipeline follows AWS best practices and can scale to support multi-stage deployments, automated testing, and security scanning.
     🚀 **Resolution**: Implemented CDK Pipelines pattern with self-mutation enabled, stage-based deployment architecture, and proper separation of concerns between pipeline and application infrastructure.
 
-CloudFrontDomainName = dthzzwznmie2q.cloudfront.net
+
 
 ---
 
 ### Next Steps
 
 The current architecture is a static frontend with a working CI/CD pipeline and a working CI/CD pipeline with no backend. The following steps will expand this into a dynamic, full-stack application.
+
+[x] Debug: deployment - index.html is being deployed with no React functionality. console warning `'React' not defined`
+[x] Debug: custom domain not calling web app 
+[x] Implement: a simple homepage
+[ ] Implement: new fronted pipeline: one that supports greater functionality for developing eventual testing stages
+[ ] Modify the Distribution Cache invalidation to shorten the TTL
 
 #### Next Implementation
 
