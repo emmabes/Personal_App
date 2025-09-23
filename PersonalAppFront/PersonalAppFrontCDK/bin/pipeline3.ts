@@ -6,9 +6,10 @@ import {
 } from "aws-cdk-lib/pipelines";
 import { Construct } from "constructs";
 import { FrontendStage } from "./frontend-stage";
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 
 export class FrontendPipelineStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, certificate: Certificate, props?: StackProps) {
     super(scope, id, props);
 
     const pipeline = new CodePipeline(this, "PersonalAppFrontendPipeline", {
@@ -32,7 +33,7 @@ export class FrontendPipelineStack extends Stack {
     });
 
     const buildStage = pipeline.addStage(
-      new FrontendStage(this, "Alpha", {
+      new FrontendStage(this, "Alpha", certificate, {
         env: props?.env,
       })
     );
@@ -48,7 +49,7 @@ export class FrontendPipelineStack extends Stack {
     );
 
     const prodStage = pipeline.addStage(
-      new FrontendStage(this, "Production", {
+      new FrontendStage(this, "Production", certificate, {
         env: props?.env,
       })
     );

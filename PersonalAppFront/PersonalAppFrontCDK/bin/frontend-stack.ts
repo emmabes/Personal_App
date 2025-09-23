@@ -14,17 +14,33 @@ import {
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
-export class FrontendStack extends Stack {
+export class PersonalAppFrontendStack extends Stack {
+  public readonly siteBucket: Bucket; 
+  public readonly distributionId: string;
+
   constructor(scope: Construct, id: string, certificate: Certificate, props?: StackProps) {
     super(scope, id, props);
 
-    const siteBucket = new Bucket(this, "SiteBucket", {
-      bucketName: `personal-app-frontent-${this.account}`,
+    const bucketName:string = 'portfolio-app-frontend-bucket'; // if this should change for any reason, update the buildspec
+
+    const logsBucket = new Bucket(this, "LogsBucket", {
+      bucketName: `${bucketName}-logs`,
+      removalPolicy: RemovalPolicy.DESTROY,
+      publicReadAccess: false,
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+      enforceSSL: true,
+    });
+
+    this.siteBucket = new Bucket(this, "PersonalFrontSiteBucket", {
+      bucketName: bucketName,
       websiteIndexDocument: "index.html",
       publicReadAccess: false,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
+      enforceSSL: true,
+      serverAccessLogsBucket: logsBucket,
+      serverAccessLogsPrefix: "access-logs/"
     });
 
     const originAccessIdentity = new OriginAccessIdentity(this, "OAI", {
@@ -59,15 +75,9 @@ export class FrontendStack extends Stack {
         origins: [
           {
             id: "s3-origin-id",
-            domainName: siteBucket.bucketRegionalDomainName,
+            domainName: this.siteBucket.bucketRegionalDomainName,
             s3OriginConfig: {
-              originAccessIdentity: `origin-access-identity/cloudfront/${
-                new CfnCloudFrontOriginAccessIdentity(this, "OAI", {
-                  cloudFrontOriginAccessIdentityConfig: {
-                    comment: "now cloudfront can access the s3 bucket",
-                  },
-                }).ref
-              }`,
+              originAccessIdentity: `origin-access-identity/cloudfront/${originAccessIdentity.originAccessIdentityId}`,
             },
           },
         ],
@@ -78,8 +88,9 @@ export class FrontendStack extends Stack {
         } : undefined,
       },
     });
+    this.distributionId = distribution.getAtt("Id").toString();
 
-    siteBucket.addToResourcePolicy(
+    this.siteBucket.addToResourcePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
         actions: ["s3:GetObject"],
@@ -88,12 +99,20 @@ export class FrontendStack extends Stack {
             originAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId
           ),
         ],
-        resources: [siteBucket.arnForObjects("*")],
+        resources: [this.siteBucket.arnForObjects("*")],
       })
     );
 
     new CfnOutput(this, "DistributionDomainName", {
       value: distribution.getAtt("DomainName").toString(),
+    });
+
+    new CfnOutput(this, "ProductionBucketName", {
+      value: this.siteBucket.bucketName,
+    });
+
+    new CfnOutput(this, "DistributionId", {
+      value: this.distributionId,
     });
   }
 }

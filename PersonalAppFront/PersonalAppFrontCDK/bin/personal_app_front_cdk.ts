@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
-import { PersonalAppFrontCdkStack } from "../lib/personal_app_front_cdk-stack";
+import { PersonalAppFrontendStack } from "./frontend-stack";
 import { FrontendPipelineStack } from "./pipeline2";
 import { CertificateStack } from "./certificate-stack";
 
@@ -23,10 +23,6 @@ if (!ENVIRONMENT["account"] || !ENVIRONMENT["region"]) {
   );
 }
 
-new FrontendPipelineStack(app, "PersonalAppFrontendPipelineStack", {
-  env: ENVIRONMENT,
-});
-
 const certificateStack = new CertificateStack(app, "CertificateStack", {
   env: {
     account: ENVIRONMENT.account,
@@ -34,13 +30,16 @@ const certificateStack = new CertificateStack(app, "CertificateStack", {
   },
 });
 
-const frontendStack = new PersonalAppFrontCdkStack(
+const frontendStack = new PersonalAppFrontendStack(
   app,
-  "PersonalAppFrontCdkStack",
+  "PersonalAppFrontendStack",
   certificateStack.certificate,
   {
     env: ENVIRONMENT,
-    certificate: certificateStack.certificate,
     crossRegionReferences: true,
   }
 );
+
+new FrontendPipelineStack(app, "PersonalAppFrontendPipelineStack", frontendStack, {
+  env: ENVIRONMENT,
+});

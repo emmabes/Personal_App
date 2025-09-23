@@ -13,9 +13,11 @@ import {
 } from "aws-cdk-lib/aws-codepipeline-actions";
 import { PipelineProject, BuildSpec } from "aws-cdk-lib/aws-codebuild";
 import { PolicyStatement, Effect } from "aws-cdk-lib/aws-iam";
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import { PersonalAppFrontendStack } from "./frontend-stack";
 
 export class FrontendPipelineStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, frontendStack: PersonalAppFrontendStack, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const sourceOutput = new Artifact();
@@ -62,8 +64,22 @@ export class FrontendPipelineStack extends cdk.Stack {
           "s3:ListBucket",
         ],
         resources: [
-          `arn:aws:s3:::erikmabes-com-${this.account}`,
-          `arn:aws:s3:::erikmabes-com-${this.account}/*`,
+          `arn:aws:s3:::${frontendStack.siteBucket.bucketName}`,
+          `arn:aws:s3:::${frontendStack.siteBucket.bucketName}/*`
+        ],
+      })
+    );
+
+    buildProject.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: [
+          "cloudfront:CreateInvalidation",
+          "cloudfront:GetInvalidation",
+          "cloudfront:ListInvalidations"
+        ],
+        resources: [
+          `arn:aws:cloudfront::${this.account}:distribution/*`
         ],
       })
     );
