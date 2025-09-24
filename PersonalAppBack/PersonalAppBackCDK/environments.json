@@ -1,0 +1,14 @@
+{
+    "dev": {
+        "domainNames": ["dev.erikmabes.com"],
+        "envSuffix": "dev",
+        "apiDomain": "api-dev.erikmabes.com", 
+        "dbName": "portfolio-dev"
+    },
+    "prod": {
+        "domainNames": ["erikmabes.com", "www.erikmabes.com", "ericmabes.com", "www.ericmabes.com"],
+        "envSuffix": "prod",
+        "apiDomain": "api.erikmabes.com",
+        "dbName": "portfolio-prod"
+    }
+}

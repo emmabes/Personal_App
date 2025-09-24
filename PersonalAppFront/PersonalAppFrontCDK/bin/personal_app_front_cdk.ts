@@ -3,11 +3,16 @@ import * as cdk from "aws-cdk-lib";
 import { PersonalAppFrontendStack } from "./frontend-stack";
 import { FrontendPipelineStack } from "./pipeline2";
 import { CertificateStack } from "./certificate-stack";
+import { execSync } from "child_process";
 
 const app = new cdk.App();
+const BRANCH = execSync('git branch --show-current').toString().trim();
 const ENVIRONMENT = {
   account: process.env.AWS_ACCOUNT,
   region: process.env.AWS_REGION,
+  branch: BRANCH,
+  environment: BRANCH === 'main' ? 'prod' : 'dev',
+  config: require('../environments.json')[BRANCH === 'main' ? 'prod' : 'dev']
 };
 if (!ENVIRONMENT["account"] || !ENVIRONMENT["region"]) {
   throw new Error(

@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "domainNames": ["dev.erikmabes.com"],
+        "envSuffix": "dev"
+    },
+    "prod": {
+        "domainNames": ["erikmabes.com", "www.erikmabes.com", "ericmabes.com", "www.ericmabes.com"],
+        "envSuffix": "prod"
+    }
+}

@@ -7,9 +7,11 @@ import { Construct } from "constructs";
 
 export class CertificateStack extends Stack {
   public readonly certificate: Certificate;
+  public readonly devCertificate: Certificate;
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+    
     this.certificate = new Certificate(this, "MultiDomainCertificate", {
       domainName: "erikmabes.com",
       subjectAlternativeNames: [
@@ -19,9 +21,20 @@ export class CertificateStack extends Stack {
       ],
       validation: CertificateValidation.fromDns(),
     });
+    this.devCertificate = new Certificate(this, "SingleDomainDevCertificate", {
+      domainName: "dev.erikmabes.com",
+      validation: CertificateValidation.fromDns(),
+    });
+
+
     new CfnOutput(this, "CertificateArn", {
       value: this.certificate.certificateArn,
       exportName: "MultiDomainCertificateArn",
     });
+    new CfnOutput(this, "CertificateArnDev", {
+      value: this.devCertificate.certificateArn,
+      exportName: "SingleDomainDevCertificateArn",
+    });
+
   }
 }
