@@ -56,7 +56,36 @@ Here is a summary of our accomplishments in a checklist format.
     🐛 **Issues**: Ensuring the pipeline follows AWS best practices and can scale to support multi-stage deployments, automated testing, and security scanning.
     🚀 **Resolution**: Implemented CDK Pipelines pattern with self-mutation enabled, stage-based deployment architecture, and proper separation of concerns between pipeline and application infrastructure.
 
+---
 
+#### Frontend Deployment & Infrastructure Consolidation
+
+✅**Resolved Frontend Build and Deployment Issues**
+    🐛 **Issues**: Multiple critical deployment failures:
+        - **Case Sensitivity**: Import path `"../components/motivator"` failed in Linux CodeBuild environment (Windows development was case-insensitive)
+        - **Bucket Naming Conflicts**: Pipeline deploying to `erikmabes-com-${account}` while infrastructure created `personal-app-frontend-bucket`
+        - **Parallel Stack Architecture**: Discovered two separate frontend stacks (`PersonalAppFrontCdkStack` and `PersonalAppFrontendStack`) causing confusion and cache invalidation issues
+        - **CloudFront Cache Persistence**: Stale content served due to browser cache and CloudFront edge caching
+    🚀 **Resolution**: 
+        - Fixed import case sensitivity: `"../components/Motivator"`
+        - Consolidated to single frontend stack architecture with consistent bucket naming
+        - Implemented proper Origin Access Identity (OAI) configuration for secure S3-CloudFront integration
+        - Added programmatic CloudFront cache invalidation to pipeline
+
+✅**Enhanced Security and Infrastructure Best Practices**
+    🐛 **Issues**: Security vulnerabilities identified in S3 bucket configuration:
+        - Missing SSL enforcement (CWE-319)
+        - Lack of server access logging
+        - Potential bucket naming conflicts for global uniqueness
+    🚀 **Resolution**:
+        - Implemented `enforceSSL: true` on all S3 buckets
+        - Added dedicated logging bucket with proper access controls
+        - Applied `BlockPublicAccess.BLOCK_ALL` security settings
+        - Created programmatic environment variable injection from CDK to CodeBuild
+
+✅**Automated Distribution Management**
+    🐛 **Issues**: Hardcoded distribution IDs in buildspec.yml created maintenance overhead and prevented multi-environment deployments
+    🚀 **Resolution**: Implemented dynamic environment variable injection from CDK infrastructure to CodeBuild pipeline, eliminating hardcoded values and enabling scalable multi-environment architecture
 
 ---
 
