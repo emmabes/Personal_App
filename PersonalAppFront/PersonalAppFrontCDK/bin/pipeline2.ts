@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+import { PersAppStackProps } from "./utils/personal_app";
+
 import * as cdk from "aws-cdk-lib";
+import { StackProps } from "aws-cdk-lib";
 // import {
 //   CodePipeline,
 //   CodePipelineSource,
 //   ShellStep,
-// } from 'aws-cdk-lib/pipelines';
+// } from "aws-cdk-lib/pipelines";
 import { Construct } from "constructs";
 import { Artifact, Pipeline } from "aws-cdk-lib/aws-codepipeline";
 import {
@@ -17,15 +20,17 @@ import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import { PersonalAppFrontendStack } from "./frontend-stack";
 
 export class FrontendPipelineStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, frontendStack: PersonalAppFrontendStack, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, frontendStack: PersonalAppFrontendStack, props: PersAppStackProps) {
     super(scope, id, props);
+
+    const { environment } = props;
 
     const sourceOutput = new Artifact();
     const sourceAction = new GitHubSourceAction({
-      actionName: "GitHub_Source",
+      actionName: "GithubPersApp",
       owner: "emmabes",
       repo: "Personal_App",
-      branch: "main",
+      branch: `${environment.branch}`,
       oauthToken: cdk.SecretValue.secretsManager(
         "personal_app_frontend_pipeline_token"
       ),
@@ -36,11 +41,11 @@ export class FrontendPipelineStack extends cdk.Stack {
       effect: Effect.ALLOW,
       actions: ["secretsmanager:GetSecretValue"],
       resources: [
-        `arn:aws:secretsmanager:${this.region}:${this.account}:secret:personal_app_frontend_pipeline_token`,
+        `arn:aws:secretsmanager:${this.region}:${this.account}:secret:personal_app_frontend_pipeline_token-${environment.deployment}`,
       ],
     });
-    const buildProject = new PipelineProject(this, "PersonalAppFrontPipeline", {
-      buildSpec: BuildSpec.fromSourceFilename("buildspec.yml"),
+    const buildProject = new PipelineProject(this, `PersAppFront-${environment.deployment}`, {
+      buildSpec: BuildSpec.fromSourceFilename(`buildspec.yml`),
     });
     buildProject.grantPrincipal.addToPrincipalPolicy(
       new PolicyStatement({
@@ -85,12 +90,12 @@ export class FrontendPipelineStack extends cdk.Stack {
     );
 
     const buildAction = new CodeBuildAction({
-      actionName: "FrontendBuild",
+      actionName: `PersAppFrontAction-${environment.deployment}`,
       project: buildProject,
       input: sourceOutput,
     });
 
-    new Pipeline(this, "PersonalAppFrontendPipeline", {
+    new Pipeline(this, `PersAppFrontPipeline-${environment.deployment}`, {
       stages: [
         {
           stageName: "Source",

@@ -93,11 +93,18 @@ Here is a summary of our accomplishments in a checklist format.
 
 The current architecture is a static frontend with a working CI/CD pipeline and a working CI/CD pipeline with no backend. The following steps will expand this into a dynamic, full-stack application.
 
-[x] Debug: deployment - index.html is being deployed with no React functionality. console warning `'React' not defined`
-[x] Debug: custom domain not calling web app 
-[x] Implement: a simple homepage
-[ ] Implement: new fronted pipeline: one that supports greater functionality for developing eventual testing stages
-[ ] Modify the Distribution Cache invalidation to shorten the TTL
+[ ] Implement: `dev` vs `prod` environments and deployments
+    [x] Environment detection
+    [x] `dev` certificate and domain
+    [ ] `dev` distribution and domain record
+    [ ] add environment detection to stacks
+        [x] frontend - PersonalAppFrontendStack
+        [x] frontend - FrontendPipelineStack (v2)
+        [ ] frontend - FrontendPipelineStack (v3)
+        [ ] backend - PersonalAppBackCDKStack
+        [ ] backend - BackendPipelineStack
+    [ ] Implement: new fronted pipeline: one that supports greater functionality for developing eventual testing stages
+
 
 #### Next Implementation
 

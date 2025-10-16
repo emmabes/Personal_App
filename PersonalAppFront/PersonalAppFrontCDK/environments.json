@@ -3,6 +3,10 @@
         "domainNames": ["dev.erikmabes.com"],
         "envSuffix": "dev"
     },
+    "sandbox": {
+        "domainNames": ["sandbox.erikmabes.com"],
+        "envSuffix": "sandbox"
+    },
     "prod": {
         "domainNames": ["erikmabes.com", "www.erikmabes.com", "ericmabes.com", "www.ericmabes.com"],
         "envSuffix": "prod"

@@ -1,3 +1,5 @@
+import { PersAppStackProps } from "./utils/personal_app";
+
 import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import {
@@ -18,12 +20,13 @@ export class PersonalAppFrontendStack extends Stack {
   public readonly siteBucket: Bucket; 
   public readonly distributionId: string;
 
-  constructor(scope: Construct, id: string, certificate: Certificate, props?: StackProps) {
+  constructor(scope: Construct, id: string, certificate: Certificate, props: PersAppStackProps) {
     super(scope, id, props);
 
-    const bucketName:string = 'portfolio-app-frontend-bucket'; // if this should change for any reason, update the buildspec
+    const { environment } = props;
+    const bucketName:string = `pers-app-front-${environment.deployment}`; // if this should change for any reason, update the buildspec
 
-    const logsBucket = new Bucket(this, "LogsBucket", {
+    const logsBucket = new Bucket(this, `pers-app-front-logs-${environment.deployment}`, {
       bucketName: `${bucketName}-logs`,
       removalPolicy: RemovalPolicy.DESTROY,
       publicReadAccess: false,
@@ -31,7 +34,7 @@ export class PersonalAppFrontendStack extends Stack {
       enforceSSL: true,
     });
 
-    this.siteBucket = new Bucket(this, "PersonalFrontSiteBucket", {
+    this.siteBucket = new Bucket(this, `pers-app-site-${environment.deployment}`, {
       bucketName: bucketName,
       websiteIndexDocument: "index.html",
       publicReadAccess: false,
@@ -43,16 +46,16 @@ export class PersonalAppFrontendStack extends Stack {
       serverAccessLogsPrefix: "access-logs/"
     });
 
-    const originAccessIdentity = new OriginAccessIdentity(this, "OAI", {
+    const originAccessIdentity = new OriginAccessIdentity(this, `OAI-${environment.deployment}`, {
       comment: "Allows CloudFront to access the S3 bucket",
     });
 
-    const distribution = new CfnDistribution(this, "SiteDistribution", {
+    const distribution = new CfnDistribution(this, `PersAppFront-${environment.deployment}`, {
       distributionConfig: {
         enabled: true,
         defaultRootObject: "index.html",
         defaultCacheBehavior: {
-          targetOriginId: "s3-origin-id",
+          targetOriginId: `s3-origin-id-${environment.deployment}`,
           viewerProtocolPolicy: "redirect-to-https",
           allowedMethods: ["GET", "HEAD", "OPTIONS"],
           // Use legacy TTL settings for short cache
@@ -67,24 +70,24 @@ export class PersonalAppFrontendStack extends Stack {
         cacheBehaviors: [
           {
             pathPattern: "/assets/*",
-            targetOriginId: "s3-origin-id",
+            targetOriginId: `s3-origin-id-${environment.deployment}`,
             viewerProtocolPolicy: "redirect-to-https",
             cachePolicyId: "4135ea2d-6df8-44a3-9df3-4b5a84be39ad", // Disabling Caching during development; reistate optimized with "658327ea-f89d-4fab-a63d-7e88639e58f6"
           },
         ],
         origins: [
           {
-            id: "s3-origin-id",
+            id: `s3-origin-id-${environment.deployment}`,
             domainName: this.siteBucket.bucketRegionalDomainName,
             s3OriginConfig: {
               originAccessIdentity: `origin-access-identity/cloudfront/${originAccessIdentity.originAccessIdentityId}`,
             },
           },
         ],
-        aliases: ['erikmabes.com', 'www.erikmabes.com', 'ericmabes.com', 'www.ericmabes.com'],
+        aliases: environment.config.domainNames,
         viewerCertificate: certificate ? {
           acmCertificateArn: certificate.certificateArn,
-          sslSupportMethod: 'sni-only',
+          sslSupportMethod: "sni-only",
         } : undefined,
       },
     });
@@ -103,15 +106,15 @@ export class PersonalAppFrontendStack extends Stack {
       })
     );
 
-    new CfnOutput(this, "DistributionDomainName", {
+    new CfnOutput(this, `DistributionDomainName-${environment.deployment}`, {
       value: distribution.getAtt("DomainName").toString(),
     });
 
-    new CfnOutput(this, "ProductionBucketName", {
+    new CfnOutput(this, `ProductionBucketName-${environment.deployment}`, {
       value: this.siteBucket.bucketName,
     });
 
-    new CfnOutput(this, "DistributionId", {
+    new CfnOutput(this, `DistributionId-${environment.deployment}`, {
       value: this.distributionId,
     });
   }
