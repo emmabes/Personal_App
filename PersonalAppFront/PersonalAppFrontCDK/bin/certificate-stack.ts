@@ -18,6 +18,7 @@ export class CertificateStack extends Stack {
     
     this.certificate = this.getCertificateForEnvironment(environment.deployment);
     this.output = this.getCfnOutput(environment.deployment);
+    this.output;
   }
 
   public getCertificateForEnvironment(environment: string): Certificate {
