@@ -7,7 +7,7 @@ import { FrontendPipelineStack } from "./pipeline2";
 import { CertificateStack } from "./certificate-stack";
 import { execSync } from "child_process";
 
-const FIRST_DEPLOYMENT = false;
+const FIRST_DEPLOYMENT = true;
 
 const app = new cdk.App();
 const BRANCH = execSync("git branch --show-current").toString().trim();
@@ -30,11 +30,9 @@ if (!environment.account || !environment.region) {
   );
 }
 
-const certificateStack = new CertificateStack(app, 'PersAppCertificateStack', {
-  env: {
-    account: environment.account,
-    region: "us-east-1",
-  },
+const certificateStack = new CertificateStack(app, `PersAppCertificateStack-${environment.deployment}`, {
+  env: { account:environment.account, region: environment.region},
+  environment: environment,
 });
 
 const frontendStack = new PersonalAppFrontendStack(
