@@ -20,7 +20,7 @@ export class PersonalAppFrontendStack extends Stack {
   public readonly siteBucket: Bucket; 
   public readonly distributionId: string;
 
-  constructor(scope: Construct, id: string, certificate: Certificate, props: PersAppStackProps) {
+  constructor(scope: Construct, id: string, certificate: Certificate | undefined, props: PersAppStackProps) {
     super(scope, id, props);
 
     const { environment } = props;
@@ -84,7 +84,7 @@ export class PersonalAppFrontendStack extends Stack {
             },
           },
         ],
-        aliases: environment.config.domainNames,
+        aliases: certificate ? environment.config.domainNames : undefined, // comment out when redploying the stack
         viewerCertificate: certificate ? {
           acmCertificateArn: certificate.certificateArn,
           sslSupportMethod: "sni-only",

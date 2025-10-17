@@ -7,6 +7,8 @@ import { FrontendPipelineStack } from "./pipeline2";
 import { CertificateStack } from "./certificate-stack";
 import { execSync } from "child_process";
 
+const FIRST_DEPLOYMENT = false;
+
 const app = new cdk.App();
 const BRANCH = execSync("git branch --show-current").toString().trim();
 const DOMAIN = BRANCH === "main" ? "prod" : BRANCH === "sandbox" ? "sandbox" : BRANCH === "dev" ? "dev" : "";
@@ -38,11 +40,11 @@ const certificateStack = new CertificateStack(app, 'PersAppCertificateStack', {
 const frontendStack = new PersonalAppFrontendStack(
   app,
   `PersAppFrontendStack-${environment.deployment}`,
-  certificateStack.certificate,
+  FIRST_DEPLOYMENT ? undefined : certificateStack.getCertificateForEnvironment(environment.deployment),
   {
     env: { account:environment.account, region: environment.region},
     environment: environment,
-    crossRegionReferences: true,
+    crossRegionReferences: FIRST_DEPLOYMENT ? undefined : true,
   }
 );
 

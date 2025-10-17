@@ -44,4 +44,17 @@ export class CertificateStack extends Stack {
       exportName: "SingleDomainSandboxCertificateArn",
     });
   }
+
+  public getCertificateForEnvironment(environment: string): Certificate {
+    switch (environment) {
+      case "prod":
+        return this.certificate;
+      case "dev":
+        return this.devCertificate;
+      case "sandbox":
+        return this.sandboxCertificate;
+      default:
+        throw new Error(`Unknown development environment requested in CertificateStack: ${environment}`);
+    }
+  }
 }
