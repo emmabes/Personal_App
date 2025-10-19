@@ -46,6 +46,10 @@ export class FrontendPipelineStack extends cdk.Stack {
     });
     const buildProject = new PipelineProject(this, `PersAppFront-${environment.deployment}`, {
       buildSpec: BuildSpec.fromSourceFilename(`buildspec.yml`),
+      environmentVariables: {
+        BUCKET_NAME: { value: frontendStack.siteBucket.bucketName },
+        DISTRIBUTION_ID: { value: frontendStack.distributionId },
+      }
     });
     buildProject.grantPrincipal.addToPrincipalPolicy(
       new PolicyStatement({

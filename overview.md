@@ -98,8 +98,9 @@ The current architecture is a static frontend with a working CI/CD pipeline and 
     [x] `dev` certificate and domain
     [ ] `dev` distribution and domain record
     [ ] add environment detection to stacks
-        [x] frontend - PersonalAppFrontendStack
-        [x] frontend - FrontendPipelineStack (v2)
+        [x] frontcdk - PersonalAppFrontendStack
+        [x] frontcdk - FrontendPipelineStack (v2)
+        [ ] frontcdk - buildspec.yml - change from hardcoded bucket names to dynamic environment names
         [ ] frontend - FrontendPipelineStack (v3)
         [ ] backend - PersonalAppBackCDKStack
         [ ] backend - BackendPipelineStack

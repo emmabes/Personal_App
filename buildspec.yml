@@ -1,15 +1,13 @@
 version: 0.2
-env: 
-  variables:
-    BUCKET_NAME: portfolio-app-frontend-bucket
-    DISTRIBUTION_ID: ESCQ36H0ZLTO3
 phases:
   install:
     runtime-versions:
       nodejs: 20
   pre_build:
     commands:
+      - npm install -g npm@latest
       - cd PersonalAppFront/PersonalAppFrontend
+      - npm audit --audit-level=moderate
       - npm install
   build:
     commands:
