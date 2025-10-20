@@ -24,7 +24,7 @@ export class PersonalAppFrontendStack extends Stack {
     super(scope, id, props);
 
     const { environment } = props;
-    const bucketName:string = `pers-app-front-${environment.deployment}`; // if this should change for any reason, update the buildspec
+    const bucketName:string = `pers-app-front-${environment.deployment}`;
 
     const logsBucket = new Bucket(this, `pers-app-front-logs-${environment.deployment}`, {
       bucketName: `${bucketName}-logs`,
