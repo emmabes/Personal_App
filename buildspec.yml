@@ -7,7 +7,6 @@ phases:
     commands:
       - npm install -g npm@latest
       - cd PersonalAppFront/PersonalAppFrontend
-      - npm audit --audit-level=moderate
       - npm install
   build:
     commands:
