@@ -11,9 +11,6 @@ export const iconMap = Object.fromEntries(
   })
 );
 
-// Debug: log the iconMap to see what keys we have
-console.log('Available icons:', Object.keys(iconMap));
-
 export const iconList = Object.keys(iconMap);
 
 export const renderIcon = (player, icon) => {
