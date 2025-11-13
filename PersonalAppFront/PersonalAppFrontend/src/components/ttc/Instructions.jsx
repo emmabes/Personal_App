@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import instructionsText from '../../assets/ttc/instructions.txt?raw';
 
 const Instructions = ({ showInstructions, onClose }) => {
-  const [content, setContent] = useState('');
-
-  useEffect(() => {
-    fetch('/src/assets/ttc/instructions.txt')
-      .then(response => response.text())
-      .then(text => setContent(text))
-      .catch(() => setContent('Instructions not available'));
-  }, []);
+  const content = instructionsText;
 
   if (!showInstructions) return null;
 
