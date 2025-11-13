@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./TicTacToe.css";
 import backgroundImage from "../assets/Solid-Black-Website-Background.jpg";
-import { checkWinner, checkCatsGame } from "../services/ttc/gameLogic";
+import { checkWinner, checkCatsGame } from "../services/ttc/gameLogic.js";
 import { iconList, renderIcon } from "../services/ttc/iconService.jsx";
 import GameGrid from "../components/ttc/GameGrid";
 import PlayerBox from "../components/ttc/PlayerBox";
