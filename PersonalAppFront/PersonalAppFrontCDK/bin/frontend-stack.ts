@@ -89,6 +89,14 @@ export class PersonalAppFrontendStack extends Stack {
           acmCertificateArn: certificate.certificateArn,
           sslSupportMethod: "sni-only",
         } : undefined,
+        customErrorResponses: [
+          {
+            errorCode: 404,
+            responseCode: 200,
+            responsePagePath: "/index.html",
+            errorCachingMinTtl: 300,
+          },
+        ],
       },
     });
     this.distributionId = distribution.getAtt("Id").toString();

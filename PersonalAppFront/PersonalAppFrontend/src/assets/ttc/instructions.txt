@@ -1,0 +1,15 @@
+Basic Game:
+• Click a cell to select it
+• Click "Next" to place your symbol
+• Get 3 in a row to win
+
+Customization:
+• Click player icon to change character
+• Click player name to edit
+• Click color box to change theme
+
+Controls:
+• "Reset" clears everything
+• Click anywhere after game ends to restart
+
+Click anywhere to close

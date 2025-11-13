@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -55,6 +55,7 @@ p.home-font {
   background-position: center;
   min-height: 100vh;
   width: 100%;
+  padding: 2rem;
 }
 
 @keyframes logo-spin {

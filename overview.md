@@ -30,6 +30,10 @@ Here is a summary of our accomplishments in a checklist format.
     🐛 **Issues**: Confusion with deprecated and abstract CDK constructs for hosting a static website (e.g., `S3Origin`, `S3BucketOrigin`, `CfnDistribution`), and a simple typo in the `CfnDistribution` property.
     🚀 **Resolution**: We successfully used a low-level `CfnDistribution` to host a secure, public-facing website, overcoming several syntax and logical errors in the process.
 
+✅**Implemented Comprehensive Testing Suite**
+    🐛 **Issues**: Tests failing due to missing fetch API in Jest environment, TextEncoder polyfill issues with react-router-dom, DOM property warnings, and outdated test content.
+    🚀 **Resolution**: Added proper mocks and polyfills in setupTests.js, fixed className attributes, and updated test content to match actual app behavior. Achieved 47 passing tests across 9 test suites covering components, services, and pages.
+
 ---
 
 #### Backend Infrastructure

@@ -10,8 +10,8 @@ function ComingSoon() {
   return (
     <>
       <p> </p>
-      <h1 class="home-font">Welcome to erikmabes.com</h1>
-      <p class="home-font">Erik Mabes' updated personal site coming soon!</p>
+      <h1 className="home-font">Welcome to erikmabes.com</h1>
+      <p className="home-font">Erik Mabes' updated personal site coming soon!</p>
       <div>
         <img src={homelogo} className="logo" alt="home logo" />
       </div>

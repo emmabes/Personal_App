@@ -4,10 +4,24 @@ Welcome to my personal portfolio! After a very busy season of life, I've managed
 - CI/CD pipelines for both frontend and backend deployments, with Source, Build, and Production stages, with the hopes of adding integration testing soon.
 - A backend CDK using Python for infrastructure as code
 - A frontend CDK using TypeScript for infrastructure as code
-- A Vite+React frontend web ui
+- A Vite+React frontend web ui with comprehensive test coverage
 - Soon to come: a Java backend with secure APIs for more complex interactions
 
 At current state, enjoy some uplifting motivation from the "Coming Soon" page, and be sure to check back for more info soon!
+
+## Testing
+
+The frontend includes a robust testing suite with **47 tests** across **9 test suites**, covering:
+- React component functionality and interactions
+- Game logic and state management
+- User interface behavior
+- Service layer operations
+
+```bash
+# Run tests
+cd PersonalAppFront/PersonalAppFrontend
+npm test
+```
 
 ## Development Steps
 
