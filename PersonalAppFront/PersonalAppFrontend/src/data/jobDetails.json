@@ -1,0 +1,173 @@
+{
+  "Manager, Training Supervisor": {
+    "company": "Sizzler Steakhouse",
+    "role": "Manager, Training Supervisor",
+    "description": "Managed a high-performing restaurant unit with up to 19 employees simultaneously per shift. Owned hiring, training, and team development while managing financials, daily sales analyses, deposits, and all opening and closing operations. Responsible for designing and delivering service training programs and maintaining brand standards across all shifts.",
+    "achievements": [
+      "Increased guest satisfaction scores to a regional high of 93% with a new data-driven training program",
+      "Set regional sales records for monthly, weekly, and daily sales",
+      "Increased guest satisfaction survey responses by 18%",
+      "Improved front-of-house staff retention rates by 14% year over year with a new employee evaluation and recognition structure"
+    ],
+    "skills": ["Team Leadership", "P&L Management", "Training & Development", "Operations Management"],
+    "startDate": "Jan 2010",
+    "endDate": "Jan 2015",
+    "location": "Gallup, NM",
+    "type": "Full-time"
+  },
+  "Project Manager": {
+    "company": "TKM Restaurants, Inc.",
+    "role": "Project Manager",
+    "description": "Managed the full scope of a franchise restaurant remodel, acting as General Contractor in a rural small town with limited resources. Coordinated between ownership, corporate administration, contractors, and suppliers while ensuring compliance with corporate standards and governance regulations. Applied Lean Six Sigma methodologies to manage timelines, resources, and budgets.",
+    "achievements": [
+      "Revived a physical remodel stalled for over 7 months",
+      "Reduced an 8-week shutdown to 3.5 weeks, recouping an estimated $360,000 in sales",
+      "Accelerated timelines by personally executing tasks in plumbing, electrical, and IT networking",
+      "Restored stakeholder buy-in and trust through structured communication and documentation"
+    ],
+    "skills": ["Project Management", "Lean Six Sigma", "Stakeholder Management", "General Contracting"],
+    "startDate": "Feb 2024",
+    "endDate": "Jan 2025",
+    "location": "Gallup, NM (Remote)",
+    "type": "Contract"
+  },
+  "Director of Operations": {
+    "company": "TKM Restaurants, Inc.",
+    "role": "Director of Operations",
+    "description": "Responsible for full P&L and all aspects of daily business operations for a single-unit restaurant franchise, leading a team of 63 employees including 4 managers. Oversee hiring, training, scheduling, vendor relations, marketing, and brand compliance. Own strategic planning, culture development, and systems integration to drive operational efficiency and guest satisfaction.",
+    "achievements": [
+      "Drove a 5.7% year-over-year increase in sales and sustained 1.5% increase in guest counts",
+      "Led a comprehensive culture transformation, raising management & hiring standards",
+      "Implementing integrated POS and operations software with projection models for budgeting and scheduling"
+    ],
+    "skills": ["P&L Ownership", "Team Leadership", "Culture Development", "Systems Integration", "Strategic Planning"],
+    "startDate": "Feb 2025",
+    "endDate": "Present",
+    "location": "Gallup, NM (Hybrid)",
+    "type": "Full-time"
+  },
+  "Shift Lead, Training Server": {
+    "company": "Core Kitchen & Wine Bar, Ritz Carlton",
+    "role": "Shift Lead, Training Server",
+    "description": "Served in a Forbes 5-Star restaurant environment, delivering exquisite dining experiences while upholding the highest standards of service and presentation. Led service staff initiatives and mentored team members, fostering a harmonious team environment and championing service excellence in a world-class establishment.",
+    "achievements": [
+      "Contributed to initiatives that earned the coveted Forbes 5-Star Award",
+      "Led service staff initiatives and mentored new team members",
+      "Maintained impeccable standards of service and professionalism in a luxury dining setting"
+    ],
+    "skills": ["Fine Dining Service", "Team Leadership", "Training & Mentorship", "Guest Relations"],
+    "startDate": "Apr 2019",
+    "endDate": "Oct 2019",
+    "location": "Marana, AZ",
+    "type": "Full-time"
+  },
+  "Fulfillment Associate": {
+    "company": "Amazon Fulfillment Center",
+    "role": "Fulfillment Associate",
+    "description": "Performed high-volume fulfillment operations across multiple warehouse functions including inbound stowing, outbound packing, gift wrap, water spider, and tote running. Supported peak-season demand through cross-functional flexibility and labor share across departments.",
+    "achievements": [
+      "Achieved the peak stowing goals during peak season",
+      "Hit a 350 rate in a single hour, regularly exceeded 300, and consistently averaged over 275 per shift, at an FC-wide average of 250-average"
+    ],
+    "skills": ["Warehouse Operations", "High-Volume Fulfillment", "Cross-functional Flexibility"],
+    "startDate": "Oct 2019",
+    "endDate": "Mar 2020",
+    "location": "Tucson, AZ",
+    "type": "Full-time"
+  },
+  "Staffing Ambassador": {
+    "company": "Amazon.com",
+    "role": "Staffing Ambassador",
+    "description": "Owned field auditing responsibilities for high-volume hiring across PHX node sites, uniquely evolving into an optimization role for the entire candidate pipeline. Dedicated myself to the Optimization Team, auditing the applicant funnel from application to first day, identifying pain points, and developing strategies to maximize candidate conversion and show rates.",
+    "achievements": [
+      "Reduced key report generation times from 1.5+ hours to under 10 minutes through automation",
+      "Cut team optimization workload from 120 weekly hours to under 60",
+      "Supported the launch of a record 13 sites in 4 months",
+      "Saved $30,000 annually per implementing team ($210,000 total at departure) by training additional teams on new practices"
+    ],
+    "skills": ["Process Optimization", "Automation", "Data Analysis", "High-Volume Hiring", "Training"],
+    "startDate": "Mar 2020",
+    "endDate": "Feb 2021",
+    "location": "Tucson, AZ / Laveen, AZ",
+    "type": "Full-time"
+  },
+  "Project Coordinator": {
+    "company": "Amazon.com",
+    "role": "Project Coordinator",
+    "description": "Primary owner and point of contact for the WFS Launch Tracker, a central leadership data source synthesizing over 32,000 data points across multiple business organizations and internal systems. Responsible for maintaining launch-site readiness data, managing auditing workflows, and publishing weekly reports to inform business decisions across the staffing organization.",
+    "achievements": [
+      "Drove a 42% reduction in workload times through automation and upstream data source improvements",
+      "Maintained and audited launch readiness for 523 sites in 2021",
+      "Migrated tracking from manual Excel emails to an automated AWS Quicksight dashboard"
+    ],
+    "skills": ["Python", "VBA", "AWS Quicksight", "AWS Redshift", "Data Synthesis", "Automation"],
+    "startDate": "Feb 2021",
+    "endDate": "Feb 2022",
+    "location": "Phoenix, AZ (Remote)",
+    "type": "Full-time"
+  },
+  "Amazon Technical Academy": {
+    "company": "Amazon.com",
+    "role": "Amazon Technical Academy",
+    "description": "Participant in Amazon's rigorous 9-month internal software engineering program, focused on full-stack development, AWS cloud architecture, and ownership of the entire development lifecycle. Curriculum covered Java, Python, AWS, SDLC, Agile/Scrum methodologies, CI/CD, and DevOps principles through project-based learning modeled after real Amazon products.",
+    "achievements": [
+      "Graduated with a 99% overall score",
+      "Led a team of 4 to build a custom Kanban web-app, recognized as Top 3 out of 44 teams",
+      "Earned official inclination to skip Junior Developer and promote directly to SDE I",
+      "Volunteered to speak for Amazon-wide ATA promotions and panel discussions"
+    ],
+    "skills": ["Java", "Python", "JavaScript", "AWS", "Git", "Docker", "JUnit", "Agile/Scrum", "CI/CD"],
+    "startDate": "Feb 2022",
+    "endDate": "Oct 2022",
+    "location": "Phoenix, AZ (Remote)",
+    "type": "Full-time"
+  },
+  "Software Development Engineer I": {
+    "company": "Amazon.com",
+    "role": "Software Development Engineer I",
+    "description": "Key contributor on the Listings Management & Quality team, developing front-end features in an internal Java framework and supporting backend microservices with Java and AWS. Owned development across the full SDLC within Amazon's DevOps culture, collaborating with multiple teams to unify 3rd-party seller and 1st-party vendor upload experiences into a single backend system.",
+    "achievements": [
+      "Spearheaded an image URL inspection feature that reduced upload errors by 9%, saving nearly $50 million annually",
+      "Contributed to reducing listing errors from over 60% to 14%, saving Amazon nearly $250 million annually",
+      "Collaborated in reducing seller report generation times by 61%",
+      "Managed CI/CD infrastructure and participated in bimonthly on-call rotations"
+    ],
+    "skills": ["Java", "TypeScript", "AWS CDK", "Microservices", "CI/CD", "DevOps", "On-Call Operations"],
+    "startDate": "Oct 2022",
+    "endDate": "Dec 2023",
+    "location": "Tempe, AZ (Hybrid)",
+    "type": "Full-time"
+  },
+  "Lead Bartender, Certified Trainer": {
+    "company": "Topgolf",
+    "role": "Lead Bartender, Certified Trainer",
+    "description": "Led bar operations and coached the associate team on sales techniques, service standards, and product knowledge. Facilitated core and skills training classes, mentored new hires through shadow shifts, and maintained the highest standards of service and cleanliness in a fast-paced entertainment venue.",
+    "achievements": [
+      "Reduced overall bar waste by 4% by implementing a new product cataloging system",
+      "Reduced onboarding time by 11% with a new alcohol learning strategy",
+      "Managed inventories and performed regular performance checks of fellow associates"
+    ],
+    "skills": ["Bartending", "Team Coaching", "Inventory Management", "Sales Techniques", "Training"],
+    "startDate": "Dec 2017",
+    "endDate": "Dec 2018",
+    "location": "Marana, AZ",
+    "type": "Full-time"
+  },
+  "BS Neuroscience & Cognitive Science": {
+    "company": "University of Arizona",
+    "role": "B.S. in Neuroscience & Cognitive Sciences",
+    "description": "Neurobiology Emphasis, Psychology Minor",
+    "achievements": "",
+    "startDate": "Aug 2015",
+    "endDate": "Dec 2017",
+    "location": "Tucson, AZ"
+  },
+  "AAS Health Science": {
+    "company": "Coconino Community College",
+    "role": "A.A.S in Health Science",
+    "description": "Cum Laude",
+    "startDate": "Jan 2012",
+    "endDate": "May 2014",
+    "location": "Flagstaff, AZ"
+  }
+}

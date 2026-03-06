@@ -1,0 +1,76 @@
+.memory-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.size-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.label {
+  color: silver;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.size-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.size-button {
+  background: rgba(192, 192, 192, 0.1);
+  border: 1px solid silver;
+  color: silver;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.size-button:hover {
+  background: rgba(192, 192, 192, 0.2);
+}
+
+.size-button.active {
+  background: silver;
+  color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.reset-game-button {
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  background: linear-gradient(145deg, #d0d0d0, #a0a0a0);
+  border: 2px solid #777;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3), -2px -2px 6px rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+}
+
+.reset-game-button:hover {
+  background: linear-gradient(145deg, #e0e0e0, #b0b0b0);
+  transform: translateY(-1px);
+}
+
+.reset-game-button:active {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -1px -1px 2px rgba(255, 255, 255, 0.7);
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .size-selector {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

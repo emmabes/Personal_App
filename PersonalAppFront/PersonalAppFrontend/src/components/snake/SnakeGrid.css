@@ -1,0 +1,56 @@
+.snake-grid-container {
+  padding: 1rem;
+  background: rgba(192, 192, 192, 0.1);
+  border: 2px solid silver;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.1), 0 4px 8px rgba(0,0,0,0.5);
+  margin: 1.5rem 0;
+}
+
+.snake-grid {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.snake-cell {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.snake-head {
+  background-color: white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  border-radius: 20%;
+  z-index: 2;
+}
+
+.snake-body {
+  background-color: rgba(192, 192, 192, 0.6);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10%;
+  z-index: 1;
+}
+
+.snake-food {
+  background-color: gold;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  border-radius: 50%;
+  animation: foodPulse 1s infinite alternate;
+}
+
+@keyframes foodPulse {
+  from { transform: scale(0.8); box-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
+  to { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 215, 0, 1); }
+}
+
+.game-over .snake-grid {
+  filter: grayscale(100%) brightness(0.5);
+}
+
+@media (max-width: 500px) {
+  .snake-grid {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}

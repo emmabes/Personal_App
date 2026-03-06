@@ -2,36 +2,52 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 3000;
 }
 
 .menu-toggle {
-  background: #333;
-  color: white;
-  border: none;
-  padding: 15px;
-  font-size: 18px;
+  background: linear-gradient(145deg, #e6e6e6, #c0c0c0);
+  color: #333;
+  border: 2px solid #999;
+  padding: 12px 18px;
+  font-size: 24px;
   cursor: pointer;
-  border-radius: 0 0 5px 0;
-  z-index: 1001;
-  position: relative;
-}
-
-.menu-toggle:hover {
-  background: #555;
-}
-
-.menu-content {
-  background: #333;
-  width: 250px;
-  height: 100vh;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  border-radius: 0 0 10px 0;
+  z-index: 3005;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle:hover {
+  background: linear-gradient(145deg, #ffffff, #d0d0d0);
+  transform: scale(1.05);
+}
+
+.menu-toggle:active {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: scale(0.95);
+}
+
+.menu-content {
+  background: rgba(30, 30, 30, 0.95);
+  width: 280px;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3001;
   overflow: hidden;
+  border-right: 2px solid silver;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .menu-content.open {
@@ -42,7 +58,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-top: 60px;
+  padding-top: 80px; /* Space for the toggle button */
   transition: transform 0.3s ease;
 }
 
@@ -63,14 +79,41 @@
   width: 100%;
   background: none;
   border: none;
-  color: white;
-  padding: 15px 20px;
+  color: silver;
+  padding: 15px 25px;
   text-align: left;
   cursor: pointer;
-  border-bottom: 1px solid #555;
-  font-size: 16px;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+  font-size: 18px;
+  transition: all 0.2s ease;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
 .menu-item:hover {
-  background: #555;
+  background: rgba(192, 192, 192, 0.1);
+  color: white;
+  padding-left: 35px;
+}
+
+.back-button {
+  color: gold;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+  font-weight: 500;
+}
+
+.back-button:hover {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+  backdrop-filter: blur(2px);
 }

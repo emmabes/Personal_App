@@ -1,0 +1,197 @@
+.sudoku-game-page {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.sudoku-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.sudoku-game-page h1 {
+  color: silver;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.sudoku-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 450px;
+}
+
+.controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.difficulty-select {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid silver;
+  color: silver;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.remaining-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: silver;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(192, 192, 192, 0.05);
+  padding: 5px 12px;
+  border: 1px solid rgba(192, 192, 192, 0.3);
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.remaining-checkbox:hover {
+  background: rgba(192, 192, 192, 0.15);
+  border-color: silver;
+}
+
+.remaining-checkbox input {
+  cursor: pointer;
+  accent-color: silver;
+}
+
+.new-game-button, .check-button {
+  background: linear-gradient(145deg, #d0d0d0, #a0a0a0);
+  border: 1px solid #777;
+  color: #333;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.check-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.new-game-button:hover, .check-button:not(:disabled):hover {
+  background: linear-gradient(145deg, #e0e0e0, #b0b0b0);
+  transform: translateY(-1px);
+}
+
+.victory-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: victoryFadeIn 0.5s ease-out;
+  cursor: pointer;
+}
+
+.celebration-shimmer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shimmer-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: gold;
+  border-radius: 50%;
+  box-shadow: 0 0 10px gold;
+  animation: shimmerFall 3s linear infinite;
+}
+
+.shimmer-piece:nth-child(even) {
+  background: silver;
+  box-shadow: 0 0 10px silver;
+  width: 8px;
+  height: 8px;
+}
+
+@keyframes shimmerFall {
+  0% { transform: translateY(-100vh) translateX(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) translateX(100px) rotate(720deg); opacity: 0; }
+}
+
+/* Stagger pieces */
+.piece-0 { left: 10%; animation-delay: 0s; }
+.piece-1 { left: 20%; animation-delay: 0.5s; }
+.piece-2 { left: 30%; animation-delay: 1s; }
+.piece-3 { left: 40%; animation-delay: 0.2s; }
+.piece-4 { left: 50%; animation-delay: 1.5s; }
+.piece-5 { left: 60%; animation-delay: 0.8s; }
+.piece-6 { left: 70%; animation-delay: 1.2s; }
+.piece-7 { left: 80%; animation-delay: 0.3s; }
+.piece-8 { left: 90%; animation-delay: 1.8s; }
+.piece-9 { left: 15%; animation-delay: 2.2s; }
+
+.victory-content {
+  text-align: center;
+  padding: 3rem;
+  border: 2px solid gold;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.victory-text {
+  font-size: 5rem;
+  font-weight: bold;
+  color: gold;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  display: block;
+  margin-bottom: 1rem;
+  animation: victoryPulse 1s ease-in-out infinite alternate;
+}
+
+.victory-subtext {
+  color: silver;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes victoryFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes victoryPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+@media (max-width: 500px) {
+  .sudoku-game-page h1 { font-size: 2.5rem; }
+  .victory-text { font-size: 3.5rem; }
+}

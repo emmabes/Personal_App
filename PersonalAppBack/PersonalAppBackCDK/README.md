@@ -47,6 +47,31 @@ To add additional dependencies, for example other CDK libraries, just add
 them to your `setup.py` file and rerun the `pip install -r requirements.txt`
 command.
 
+## Testing
+
+This project uses `pytest` for unit testing.
+
+```bash
+# Activate virtualenv if not already
+source .venv/bin/activate
+
+# Run tests
+pytest
+```
+
+## Multi-Environment Deployment
+
+This project uses branch-based environment detection. Ensure you are on the correct branch before deploying:
+
+- **Development**: `dev` branch
+- **Production**: `main` branch
+
+To deploy the pipeline for a specific environment:
+```bash
+git checkout <branch>
+npx cdk deploy -a "python app.py" BackendPipelineStack
+```
+
 ## Useful commands
 
  * `cdk ls`          list all stacks in the app

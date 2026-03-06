@@ -1,12 +1,45 @@
-# React + Vite
+# Personal App Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The web user interface for the personal portfolio application. Built with React and Vite for a fast, modern development experience.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To run the application locally:
 
-## Expanding the ESLint configuration
+```bash
+# Install dependencies
+npm install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Start the development server
+npm run dev
+```
+
+The application will be available at `http://localhost:5173` (or the port shown in your terminal).
+
+## Testing
+
+This project includes a comprehensive test suite (47+ tests) using **Jest** and **React Testing Library**.
+
+To run all tests:
+```bash
+npm test
+```
+
+Tests cover:
+- Game logic for Tic Tac Toe and Memory Game
+- UI Component behavior and rendering
+- Service layer operations (icons, logic, etc.)
+
+## Building for Production
+
+To create a production build:
+```bash
+npm run build
+```
+
+The output will be in the `dist/` directory, which is what the CI/CD pipeline deploys to AWS S3.
+
+## Key Features
+- **Games**: Interactive Tic Tac Toe, Memory Game, Snake, and Sudoku with advanced CSS animations.
+- **Responsive Design**: Mobile and desktop optimized layouts.
+- **CI/CD Integrated**: Automatically deployed to AWS CloudFront on git push.

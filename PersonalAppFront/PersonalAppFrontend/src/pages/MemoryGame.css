@@ -1,0 +1,89 @@
+.memory-game-page {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.memory-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.memory-game-page h1 {
+  color: silver;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.victory-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: victoryFadeIn 0.5s ease-out;
+  cursor: pointer;
+}
+
+.victory-content {
+  text-align: center;
+  padding: 3rem;
+  border: 2px solid gold;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.victory-text {
+  font-size: 5rem;
+  font-weight: bold;
+  color: gold;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  display: block;
+  margin-bottom: 1rem;
+  animation: victoryPulse 1s ease-in-out infinite alternate;
+}
+
+.victory-subtext {
+  color: silver;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.click-to-reset {
+  color: #888;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+@keyframes victoryFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes victoryPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+@media (max-width: 768px) {
+  .memory-game-page h1 { font-size: 2.5rem; }
+  .victory-text { font-size: 3.5rem; }
+}

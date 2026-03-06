@@ -1,3 +1,7 @@
+<style>
+    * { background-color: #eed; color: #222; font-family: courier; }
+</style>
+
 # My Full-Stack App
 
 Welcome to my personal portfolio! After a very busy season of life, I've managed to carve out time to start work on a long-awaited portfolio project. While it starts as a simple looking webpage, it's overengineered with a large-scale application design in mind:

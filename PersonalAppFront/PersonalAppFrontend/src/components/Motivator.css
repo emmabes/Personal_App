@@ -18,7 +18,6 @@
   border-radius: 10%;
   font-size: 18px;
   position: relative;
-  overflow: hidden;
 }
 
 .rainbow-button-text {
@@ -49,7 +48,7 @@
   z-index: -1;
   top: -1.5px;
   left: -1.5px;
-  opacity: 0.3;
+  opacity: 0.8;
   transition: all 6s ease;
 }
 

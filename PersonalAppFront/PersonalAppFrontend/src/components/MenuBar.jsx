@@ -8,7 +8,6 @@ const MenuBar = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    if (!isOpen) setCurrentMenu('main');
   };
 
   const navigateToSubmenu = (menu) => {
@@ -25,19 +24,23 @@ const MenuBar = () => {
     main: [
       { label: 'Home', action: () => { navigate('/'); setIsOpen(false); } },
       { label: 'Games', action: () => navigateToSubmenu('games') },
-      { label: 'About', action: () => console.log('About') }
+      { label: 'Resume', action: () => { navigate('/resume'); setIsOpen(false); } },
+      // { label: 'Scratch', action: () => { navigate('/scratch'); setIsOpen(false); } },
+      { label: 'About', action: () => { console.log('About'); setIsOpen(false); } }
     ],
     games: [
+      { label: '← Back', action: goBack, isBack: true },
       { label: 'Tic Tac Toe', action: () => { navigate('/tic-tac-toe'); setIsOpen(false); } },
-      { label: 'Memory Game', action: () => console.log('Memory Game') },
-      { label: 'Snake', action: () => console.log('Snake') }
+      { label: 'Memory Game', action: () => { navigate('/memory-game'); setIsOpen(false); } },
+      { label: 'Snake', action: () => { navigate('/snake-game'); setIsOpen(false); } },
+      { label: 'Sudoku', action: () => { navigate('/sudoku-game'); setIsOpen(false); } }
     ]
   };
 
   return (
     <nav className="menu-bar">
-      <button className="menu-toggle" onClick={currentMenu === 'main' ? toggleMenu : goBack}>
-        {currentMenu === 'main' ? '☰' : '←'}
+      <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
+        ☰
       </button>
       <div className={`menu-content ${isOpen ? 'open' : ''}`}>
         <div className={`menu-level ${currentMenu === 'main' ? 'active' : 'slide-left'}`}>
@@ -49,12 +52,17 @@ const MenuBar = () => {
         </div>
         <div className={`menu-level ${currentMenu === 'games' ? 'active' : 'slide-right'}`}>
           {menuData.games.map((item, index) => (
-            <button key={index} className="menu-item" onClick={item.action}>
+            <button 
+              key={index} 
+              className={`menu-item ${item.isBack ? 'back-button' : ''}`} 
+              onClick={item.action}
+            >
               {item.label}
             </button>
           ))}
         </div>
       </div>
+      {isOpen && <div className="menu-overlay" onClick={toggleMenu} />}
     </nav>
   );
 };
