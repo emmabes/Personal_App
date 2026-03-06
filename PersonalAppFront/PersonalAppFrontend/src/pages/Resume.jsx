@@ -20,8 +20,25 @@ const JOBS_AMAZON = ['Software Development Engineer I', 'Amazon Technical Academ
 const JOBS_TOPGOLF = ['Lead Bartender, Certified Trainer'];
 const JOBS_DEGREE = ['BS Neuroscience & Cognitive Science', 'AAS Health Science'];
 
+const SIGN_URL_ENDPOINT = import.meta.env.VITE_SIGN_URL_ENDPOINT;
+
 const Resume = () => {
   const [paused, setPaused] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    if (downloading || !SIGN_URL_ENDPOINT) return;
+    setDownloading(true);
+    try {
+      const res = await fetch(SIGN_URL_ENDPOINT);
+      const { url } = await res.json();
+      window.open(url, '_blank');
+    } catch (err) {
+      console.error('Download failed:', err);
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <div className="resume-page">
@@ -55,10 +72,11 @@ const Resume = () => {
         </button>
         <button
           className="resume-toolbar__btn"
-          onClick={() => {}}
+          onClick={handleDownload}
+          disabled={downloading}
           title="Download Resume"
         >
-{'\u2913'}
+{downloading ? '\u23F3' : '\u2913'}
         </button>
         <a
           className="resume-toolbar__btn"

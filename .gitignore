@@ -1,4 +1,4 @@
-
+.DS_Store
 !jest.config.js
 *.d.ts
 node_modules

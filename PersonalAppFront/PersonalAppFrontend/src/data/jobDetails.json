@@ -1,18 +1,17 @@
 {
-  "Manager, Training Supervisor": {
-    "company": "Sizzler Steakhouse",
-    "role": "Manager, Training Supervisor",
-    "description": "Managed a high-performing restaurant unit with up to 19 employees simultaneously per shift. Owned hiring, training, and team development while managing financials, daily sales analyses, deposits, and all opening and closing operations. Responsible for designing and delivering service training programs and maintaining brand standards across all shifts.",
+  "Director of Operations": {
+    "company": "TKM Restaurants, Inc.",
+    "role": "Director of Operations",
+    "description": "Responsible for full P&L and all aspects of daily business operations for a single-unit restaurant franchise, leading a team of 63 employees including 4 managers. Oversee hiring, training, scheduling, vendor relations, marketing, and brand compliance. Own strategic planning, culture development, and systems integration to drive operational efficiency and guest satisfaction.",
     "achievements": [
-      "Increased guest satisfaction scores to a regional high of 93% with a new data-driven training program",
-      "Set regional sales records for monthly, weekly, and daily sales",
-      "Increased guest satisfaction survey responses by 18%",
-      "Improved front-of-house staff retention rates by 14% year over year with a new employee evaluation and recognition structure"
+      "Drove a 5.7% year-over-year increase in sales and sustained 1.5% increase in guest counts",
+      "Led a comprehensive culture transformation, raising management & hiring standards",
+      "Implementing integrated POS and operations software with projection models for budgeting and scheduling"
     ],
-    "skills": ["Team Leadership", "P&L Management", "Training & Development", "Operations Management"],
-    "startDate": "Jan 2010",
-    "endDate": "Jan 2015",
-    "location": "Gallup, NM",
+    "skills": ["P&L Ownership", "Team Leadership", "Culture Development", "Systems Integration", "Strategic Planning"],
+    "startDate": "Feb 2025",
+    "endDate": "Present",
+    "location": "Gallup, NM (Hybrid)",
     "type": "Full-time"
   },
   "Project Manager": {
@@ -31,19 +30,20 @@
     "location": "Gallup, NM (Remote)",
     "type": "Contract"
   },
-  "Director of Operations": {
-    "company": "TKM Restaurants, Inc.",
-    "role": "Director of Operations",
-    "description": "Responsible for full P&L and all aspects of daily business operations for a single-unit restaurant franchise, leading a team of 63 employees including 4 managers. Oversee hiring, training, scheduling, vendor relations, marketing, and brand compliance. Own strategic planning, culture development, and systems integration to drive operational efficiency and guest satisfaction.",
+  "Manager, Training Supervisor": {
+    "company": "Sizzler Steakhouse",
+    "role": "Manager, Training Supervisor",
+    "description": "Managed a high-performing restaurant unit with up to 19 employees simultaneously per shift. Owned hiring, training, and team development while managing financials, daily sales analyses, deposits, and all opening and closing operations. Responsible for designing and delivering service training programs and maintaining brand standards across all shifts.",
     "achievements": [
-      "Drove a 5.7% year-over-year increase in sales and sustained 1.5% increase in guest counts",
-      "Led a comprehensive culture transformation, raising management & hiring standards",
-      "Implementing integrated POS and operations software with projection models for budgeting and scheduling"
+      "Increased guest satisfaction scores to a regional high of 93% with a new data-driven training program",
+      "Set regional sales records for monthly, weekly, and daily sales",
+      "Increased guest satisfaction survey responses by 18%",
+      "Improved front-of-house staff retention rates by 14% year over year with a new employee evaluation and recognition structure"
     ],
-    "skills": ["P&L Ownership", "Team Leadership", "Culture Development", "Systems Integration", "Strategic Planning"],
-    "startDate": "Feb 2025",
-    "endDate": "Present",
-    "location": "Gallup, NM (Hybrid)",
+    "skills": ["Team Leadership", "P&L Management", "Training & Development", "Operations Management"],
+    "startDate": "Jan 2010",
+    "endDate": "Jan 2015",
+    "location": "Gallup, NM",
     "type": "Full-time"
   },
   "Shift Lead, Training Server": {
@@ -129,8 +129,7 @@
     "achievements": [
       "Spearheaded an image URL inspection feature that reduced upload errors by 9%, saving nearly $50 million annually",
       "Contributed to reducing listing errors from over 60% to 14%, saving Amazon nearly $250 million annually",
-      "Collaborated in reducing seller report generation times by 61%",
-      "Managed CI/CD infrastructure and participated in bimonthly on-call rotations"
+      "Collaborated in reducing seller report generation times by 61% by pivoting to asynchronous report processing"
     ],
     "skills": ["Java", "TypeScript", "AWS CDK", "Microservices", "CI/CD", "DevOps", "On-Call Operations"],
     "startDate": "Oct 2022",
