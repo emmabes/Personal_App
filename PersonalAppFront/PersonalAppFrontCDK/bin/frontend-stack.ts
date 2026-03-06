@@ -16,6 +16,7 @@ import {
   PolicyStatement,
 } from "aws-cdk-lib/aws-iam";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
+import { CfnSecret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
 
 export class PersonalAppFrontendStack extends Stack {
@@ -139,6 +140,11 @@ export class PersonalAppFrontendStack extends Stack {
     });
     this.distributionId = distribution.getAtt("Id").toString();
     this.cfSigningKeyPairId = cfSigningPublicKey.ref;
+
+    new CfnSecret(this, `CfKeyPairIdSecret-${environment.deployment}`, {
+      name: 'personal_app_cf_key_pair_id',
+      secretString: cfSigningPublicKey.ref,
+    });
 
     this.siteBucket.addToResourcePolicy(
       new PolicyStatement({
