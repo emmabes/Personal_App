@@ -11,8 +11,6 @@ phases:
   build:
     commands:
       - npm run build
-      - mkdir -p dist/private
-      - cp "../../Resumes/Erik Mabes - Resume.pdf" dist/private/resume.pdf
       - echo "Build completed, checking dist folder:"
       - ls -la dist/assets/
       - echo "Contents of dist/index.html:"
@@ -20,7 +18,7 @@ phases:
   post_build:
     commands:
       - echo "Syncing to S3 bucket - $BUCKET_NAME"
-      - aws s3 sync dist/ s3://$BUCKET_NAME/ --delete
+      - aws s3 sync dist/ s3://$BUCKET_NAME/ --delete --exclude "private/*"
       - echo "Creating CloudFront invalidation"
       - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
 
