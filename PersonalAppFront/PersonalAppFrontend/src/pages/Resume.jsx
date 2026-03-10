@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Comet from '../components/Comet';
+import ResumeTutorial from '../components/ResumeTutorial';
 import amazonLogo from '../assets/job logos/amazon_logo.png';
 import sizzlerLogo from '../assets/job logos/sizzler_logo.png';
 import ritzLogo from '../assets/job logos/ritz_logo.png';
@@ -25,6 +26,7 @@ const SIGN_URL_ENDPOINT = import.meta.env.VITE_SIGN_URL_ENDPOINT;
 const Resume = () => {
   const [paused, setPaused] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   const handleDownload = async () => {
     if (downloading || !SIGN_URL_ENDPOINT) return;
@@ -62,6 +64,16 @@ const Resume = () => {
         startX={0.85} speed={5.0} color={COLOR_TOPGOLF}
         fade={.6} paused={paused} jobs={JOBS_TOPGOLF}
         jobDetails={JOB_DETAILS} />
+      <button
+        className="resume-instructions-btn"
+        onClick={() => setShowTutorial(t => !t)}
+        title="How to use"
+      >
+        Instructions
+      </button>
+
+      <ResumeTutorial show={showTutorial} onClose={() => setShowTutorial(false)} />
+
       <div className="resume-toolbar">
         <button
           className="resume-toolbar__btn"

@@ -244,51 +244,6 @@ const Comet = ({
   const { x, y, w, h } = pos;
   const [r, g, b] = color;
 
-  const getJobCardStyle = () => {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const cardW = 520;
-    const gap = 15;
-
-    const onLeft = x < vw * 0.3;
-    const onRight = x > vw * 0.7;
-
-    if (onLeft || onRight) {
-      // Place card on opposite side, vertically centered but clamped to viewport
-      const cardH = jobCardRef.current?.offsetHeight || 400;
-      let top = y - cardH / 2;
-      top = Math.max(gap, Math.min(top, vh - cardH - gap));
-
-      if (onLeft) {
-        return { left: x + w / 2 + gap, top };
-      }
-      return {
-        left: x - w / 2 - gap,
-        top,
-        transform: 'translateX(-100%)',
-      };
-    }
-
-    // Centered horizontally — check if too low for below placement
-    if (y > vh * 0.5) {
-      // Place above the comet, clamped horizontally
-      let left = x - cardW / 2;
-      left = Math.max(gap, Math.min(left, vw - cardW - gap));
-      return {
-        left,
-        top: y - h / 2 - gap,
-        transform: 'translateY(-100%)',
-      };
-    }
-
-    // Default: below the comet + JobsList
-    return {
-      left: x,
-      top: y + h / 2 + 120,
-      transform: 'translateX(-50%)',
-    };
-  };
-
   return (
     <>
       <canvas
@@ -336,8 +291,10 @@ const Comet = ({
         <div
           ref={jobCardRef}
           style={{
-            position: 'absolute',
-            ...getJobCardStyle(),
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             zIndex: 11,
           }}
         >
