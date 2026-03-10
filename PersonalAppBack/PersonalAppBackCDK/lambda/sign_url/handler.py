@@ -14,6 +14,8 @@ KEY_PAIR_ID_SECRET_ARN = os.environ["KEY_PAIR_ID_SECRET_ARN"]
 CF_DOMAIN = os.environ["CF_DOMAIN"]
 RESOURCE_PATH = os.environ.get("RESOURCE_PATH", "private/resume.pdf")
 
+ALLOWED_ORIGINS = {"https://erikmabes.com", "https://www.erikmabes.com"}
+
 _private_key = None
 _key_pair_id = None
 
@@ -41,6 +43,12 @@ def _rsa_signer(message):
 
 
 def handler(event, context):
+    # Reflect the origin header if it is in the allowed list, otherwise fall back
+    # to the primary domain. API Gateway passes the raw origin through the event.
+    request_headers = event.get("headers") or {}
+    origin = request_headers.get("origin") or request_headers.get("Origin", "")
+    allow_origin = origin if origin in ALLOWED_ORIGINS else "https://erikmabes.com"
+
     url = f"https://{CF_DOMAIN}/{RESOURCE_PATH}"
     expire_date = datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
 
@@ -52,6 +60,7 @@ def handler(event, context):
         "statusCode": 200,
         "headers": {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": allow_origin,
         },
         "body": json.dumps({"url": signed_url}),
     }

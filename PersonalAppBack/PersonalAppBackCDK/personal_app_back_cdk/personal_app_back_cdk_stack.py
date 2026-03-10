@@ -4,6 +4,7 @@ import subprocess
 from aws_cdk import BundlingOptions, CfnOutput, DockerImage, Duration, ILocalBundling, Stack
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_secretsmanager as secretsmanager
+from aws_cdk import aws_apigateway as apigw
 from constructs import Construct
 import jsii
 
@@ -59,6 +60,8 @@ class PersonalAppBackCDKStack(Stack):
             ),
             timeout=Duration.seconds(10),
             memory_size=128,
+            # Hard ceiling: at most 5 simultaneous executions
+            reserved_concurrent_executions=5,
             environment={
                 "SIGNING_KEY_SECRET_ARN": signing_secret.secret_arn,
                 "KEY_PAIR_ID_SECRET_ARN": key_pair_id_secret.secret_arn,
@@ -70,13 +73,32 @@ class PersonalAppBackCDKStack(Stack):
         signing_secret.grant_read(sign_url_fn)
         key_pair_id_secret.grant_read(sign_url_fn)
 
-        fn_url = sign_url_fn.add_function_url(
-            auth_type=_lambda.FunctionUrlAuthType.NONE,
-            cors=_lambda.FunctionUrlCorsOptions(
-                allowed_origins=["https://erikmabes.com", "https://www.erikmabes.com"],
-                allowed_methods=[_lambda.HttpMethod.GET],
-                allowed_headers=["content-type"],
+        # API Gateway REST API with stage-level throttling.
+        # burst_limit=5: max simultaneous requests allowed before throttling kicks in.
+        # rate_limit=2: steady-state requests per second across the whole stage.
+        # Both limits return HTTP 429 to the caller when exceeded — no Lambda invocation,
+        # no Secrets Manager reads, no cost.
+        api = apigw.RestApi(
+            self, "SignUrlApi",
+            rest_api_name="personal-app-sign-url",
+            deploy_options=apigw.StageOptions(
+                stage_name="prod",
+                throttling_burst_limit=5,
+                throttling_rate_limit=2,
             ),
         )
 
-        CfnOutput(self, "SignUrlFunctionUrl", value=fn_url.url)
+        sign_url_resource = api.root.add_resource("sign-url")
+        sign_url_resource.add_method(
+            "GET",
+            apigw.LambdaIntegration(sign_url_fn),
+        )
+
+        # CORS preflight for the /sign-url resource
+        sign_url_resource.add_cors_preflight(
+            allow_origins=["https://erikmabes.com", "https://www.erikmabes.com"],
+            allow_methods=["GET"],
+            allow_headers=["content-type"],
+        )
+
+        CfnOutput(self, "SignUrlApiEndpoint", value=f"{api.url}sign-url")
