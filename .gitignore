@@ -3,6 +3,8 @@
 *.d.ts
 node_modules
 
+.env
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out
@@ -13,4 +15,5 @@ notes/
 GEMINI.md
 GEMINI/
 CLAUDE/
+.claude/
 Resumes/

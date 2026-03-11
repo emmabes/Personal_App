@@ -23,6 +23,8 @@ class BackendPipelineStack(Stack):
                     authentication=SecretValue.secrets_manager('personal_app_frontend_pipeline_token')
                 ),
                 commands=[
+                    'if git diff --name-only HEAD^ HEAD | grep -qE "^PersonalAppBack/"; then export DO_BUILD=true; else export DO_BUILD=false; fi',
+                    'if [ "$DO_BUILD" = "false" ]; then echo "No changes in backend directories, skipping build."; exit 0; fi',
                     'cd PersonalAppBack/PersonalAppBackCDK',
                     'pip install -r requirements.txt',
                     'npx cdk synth'

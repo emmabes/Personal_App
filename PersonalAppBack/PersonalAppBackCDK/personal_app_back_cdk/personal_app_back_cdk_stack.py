@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 from aws_cdk import BundlingOptions, CfnOutput, DockerImage, Duration, ILocalBundling, Stack
@@ -26,7 +27,13 @@ class PythonLocalBundling:
             "--only-binary=:all:",
             "-t", output_dir, "-q",
         ])
-        subprocess.check_call(["cp", "-r", source_dir + "/.", output_dir])
+        for item in os.listdir(source_dir):
+            src = os.path.join(source_dir, item)
+            dst = os.path.join(output_dir, item)
+            if os.path.isdir(src):
+                shutil.copytree(src, dst, dirs_exist_ok=True)
+            else:
+                shutil.copy2(src, dst)
         return True
 
 
