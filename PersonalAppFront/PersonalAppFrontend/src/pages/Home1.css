@@ -1,0 +1,503 @@
+/* ═══════════════════════════════════════════
+   HOME 1 — CYBER COMMAND
+   Dark tech split layout. Near-black bg,
+   cyan/orange accents, circuit scanlines.
+   ═══════════════════════════════════════════ */
+
+.h1-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #06080F;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Subtle horizontal scanline texture */
+.h1-scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 229, 255, 0.018) 3px,
+    rgba(0, 229, 255, 0.018) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── HERO ── */
+.h1-hero {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 56% 44%;
+  flex: 1;
+  min-height: calc(100vh - 48px);
+}
+
+/* ── LEFT COLUMN ── */
+.h1-left {
+  padding: 5rem 3rem 3rem 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+.h1-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.h1-eyebrow-text {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #00E5FF;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.h1-eyebrow-line {
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(to right, transparent, #00E5FF55);
+  flex-shrink: 0;
+}
+
+.h1-eyebrow-line--right {
+  background: linear-gradient(to left, transparent, #00E5FF55);
+  flex: 1;
+  max-width: 120px;
+}
+
+/* NAME */
+.h1-name {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: clamp(4.5rem, 9vw, 7.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* DIVIDER */
+.h1-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.h1-divider-line {
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(to right, #00E5FF, #FF6B00);
+}
+
+.h1-divider-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF6B00;
+  box-shadow: 0 0 10px #FF6B00;
+}
+
+/* BIO */
+.h1-bio {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 460px;
+  margin: 0;
+}
+
+/* ACHIEVEMENTS */
+.h1-achievements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-left: 1px solid rgba(0, 229, 255, 0.2);
+  padding-left: 1.2rem;
+}
+
+.h1-achievements li {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  line-height: 1.55;
+}
+
+.h1-num {
+  color: #00E5FF;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  margin-top: 3px;
+  opacity: 0.75;
+}
+
+/* BUTTONS */
+.h1-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 480px;
+}
+
+.h1-btn-row {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.h1-btn {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  border: 3px solid #FFFFFF;
+  padding: 0.85rem 0;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  flex: 1;
+}
+
+.h1-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  filter: brightness(1.15);
+}
+
+.h1-btn:active {
+  transform: translateY(0);
+}
+
+.h1-cyan  { background: #00AACC; }
+.h1-orange { background: #CC5500; }
+.h1-blue   { background: #3311CC; }
+
+.h1-love-row {
+  display: flex;
+  align-items: center;
+}
+
+/* ── RIGHT COLUMN ── */
+.h1-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Radial glow backdrop */
+.h1-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 229, 255, 0.13) 0%,
+    rgba(0, 68, 255, 0.08) 40%,
+    rgba(255, 107, 0, 0.05) 65%,
+    transparent 75%
+  );
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Rotating circuit rings */
+.h1-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  z-index: 1;
+}
+
+.h1-ring-1 {
+  width: 520px;
+  height: 520px;
+  border-color: rgba(0, 229, 255, 0.12);
+  animation: h1-orbit 25s linear infinite;
+  background: repeating-conic-gradient(
+    rgba(0, 229, 255, 0.06) 0deg,
+    transparent 1deg,
+    transparent 10deg
+  );
+}
+
+.h1-ring-2 {
+  width: 400px;
+  height: 400px;
+  border-color: rgba(255, 107, 0, 0.1);
+  animation: h1-orbit 18s linear infinite reverse;
+  background: repeating-conic-gradient(
+    rgba(255, 107, 0, 0.04) 0deg,
+    transparent 1deg,
+    transparent 15deg
+  );
+}
+
+.h1-ring-3 {
+  width: 300px;
+  height: 300px;
+  border-color: rgba(163, 255, 0, 0.07);
+  animation: h1-orbit 35s linear infinite;
+}
+
+@keyframes h1-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.h1-portrait {
+  position: relative;
+  z-index: 3;
+  width: min(420px, 88%);
+  height: auto;
+  filter:
+    drop-shadow(0 0 35px rgba(0, 229, 255, 0.45))
+    drop-shadow(0 0 70px rgba(0, 80, 255, 0.2));
+}
+
+/* ── FOOTER STRIP ── */
+.h1-footer-strip {
+  position: relative;
+  z-index: 2;
+  height: 48px;
+  border-top: 1px solid rgba(0, 229, 255, 0.12);
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+  gap: 1.5rem;
+}
+
+.h1-strip-label {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0, 229, 255, 0.4);
+  white-space: nowrap;
+}
+
+.h1-strip-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 229, 255, 0.15),
+    rgba(255, 107, 0, 0.15)
+  );
+}
+
+.h1-strip-label--right {
+  color: rgba(255, 107, 0, 0.4);
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE — ≤ 768px
+   Portrait-first, single centered column.
+   Thumb-friendly buttons, scaled rings.
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* Collapse grid → flex column */
+  .h1-hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 4.25rem; /* clear fixed hamburger menu */
+  }
+
+  /* Portrait rises to the top */
+  .h1-right {
+    order: 1;
+    height: min(68vw, 300px);
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Scale rings to fit mobile viewport */
+  .h1-ring-1 { width: 240px; height: 240px; }
+  .h1-ring-2 { width: 185px; height: 185px; }
+  .h1-ring-3 { width: 140px; height: 140px; }
+  .h1-glow   { width: 260px; height: 260px; }
+
+  .h1-portrait {
+    width: min(220px, 60vw);
+    filter:
+      drop-shadow(0 0 22px rgba(0, 229, 255, 0.5))
+      drop-shadow(0 0 45px rgba(0, 80, 255, 0.25));
+  }
+
+  /* Text column: centered, comfortable padding */
+  .h1-left {
+    order: 2;
+    padding: 1.75rem 1.5rem 3rem;
+    align-items: center;
+    text-align: center;
+    gap: 1.1rem;
+    justify-content: flex-start;
+  }
+
+  /* Eyebrow: center the text, trim the lines */
+  .h1-eyebrow {
+    justify-content: center;
+  }
+  .h1-eyebrow-line {
+    width: 24px;
+    flex-shrink: 0;
+  }
+  .h1-eyebrow-line--right {
+    width: 24px;
+    flex: none;
+    max-width: 24px;
+  }
+  .h1-eyebrow-text {
+    white-space: normal;
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+  }
+
+  /* Name: scales fluidly with viewport */
+  .h1-name {
+    font-size: clamp(2.8rem, 16vw, 4.2rem);
+  }
+
+  /* Divider: center it */
+  .h1-divider {
+    justify-content: center;
+  }
+
+  /* Bio: full width, legible */
+  .h1-bio {
+    max-width: 100%;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  /* Achievements: left-aligned within centered flow */
+  .h1-achievements {
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* ── BUTTONS ── */
+  .h1-cta {
+    max-width: 100%;
+    width: 100%;
+    gap: 0.8rem;
+  }
+
+  /* 2-column grid: [Resume][Games] / [About Me spans 2] */
+  .h1-btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    flex: none;
+    width: 100%;
+  }
+
+  .h1-btn-row .h1-btn:last-child {
+    grid-column: span 2;
+  }
+
+  /* Ensure tap targets meet 48px minimum */
+  .h1-btn {
+    padding: 0.95rem 0;
+    min-height: 48px;
+  }
+
+  /* Love Button: stack note below button on mobile */
+  .h1-love-row {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Footer: trim right label on mobile */
+  .h1-footer-strip {
+    padding: 0 1.25rem;
+  }
+  .h1-strip-label--right {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SMALL PHONES — ≤ 400px
+   Tighter spacing, further reduced name size.
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 400px) {
+
+  .h1-hero {
+    padding-top: 3.75rem;
+  }
+
+  .h1-right {
+    height: min(72vw, 260px);
+  }
+
+  .h1-ring-1 { width: 200px; height: 200px; }
+  .h1-ring-2 { width: 155px; height: 155px; }
+  .h1-ring-3 { width: 115px; height: 115px; }
+
+  .h1-portrait {
+    width: min(190px, 56vw);
+  }
+
+  .h1-left {
+    padding: 1.25rem 1.25rem 2.5rem;
+    gap: 0.95rem;
+  }
+
+  .h1-name {
+    font-size: clamp(2.5rem, 15vw, 3.2rem);
+  }
+
+  .h1-bio {
+    font-size: 0.9rem;
+  }
+
+  /* Stack achievements more tightly */
+  .h1-achievements {
+    gap: 0.55rem;
+  }
+  .h1-achievements li {
+    font-size: 0.8rem;
+  }
+
+  /* Stack all buttons full-width on very small screens */
+  .h1-btn-row {
+    grid-template-columns: 1fr;
+  }
+  .h1-btn-row .h1-btn:last-child {
+    grid-column: span 1;
+  }
+}

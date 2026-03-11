@@ -7,15 +7,15 @@
    ============================================================ */
 
 .jobs-list {
-  background: linear-gradient(145deg, #1a1f2e, #0a0a0a);
-  border: 1px solid rgba(192, 192, 192, 0.4);
+  background: linear-gradient(145deg, #0d111d, #06080F);
+  border: 1px solid rgba(0, 229, 255, 0.2);
   border-radius: 12px;
   box-shadow:
     inset 0 0 10px rgba(0, 0, 0, 0.6),
     0 0 20px var(--accent-glow),
     0 6px 24px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   min-width: 140px;
   animation: jobsListFadeIn 0.25s ease-out forwards;
 }
@@ -65,7 +65,7 @@
 }
 
 .jobs-list__item + .jobs-list__item {
-  border-top: 1px solid rgba(192, 192, 192, 0.08);
+  border-top: 1px solid rgba(0, 229, 255, 0.08);
 }
 
 @keyframes jobsListFadeIn {

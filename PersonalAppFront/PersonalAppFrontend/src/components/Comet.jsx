@@ -290,6 +290,7 @@ const Comet = ({
       {cardOpen && selectedJob && jobDetails[selectedJob] && (
         <div
           ref={jobCardRef}
+          className="comet-card-wrap"
           style={{
             position: 'fixed',
             top: '50%',
@@ -298,6 +299,17 @@ const Comet = ({
             zIndex: 11,
           }}
         >
+          <button
+            className="comet-card-close"
+            onClick={() => {
+              setCardOpen(false);
+              cardOpenRef.current = false;
+              setSelectedJob(null);
+            }}
+            aria-label="Close"
+          >
+            ✕
+          </button>
           <JobCard
             {...jobDetails[selectedJob]}
             image={image}

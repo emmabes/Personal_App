@@ -23,6 +23,9 @@ const JOBS_DEGREE = ['BS Neuroscience & Cognitive Science', 'AAS Health Science'
 
 const SIGN_URL_ENDPOINT = import.meta.env.VITE_SIGN_URL_ENDPOINT;
 
+// Comets feel too fast on small screens — slow them down proportionally
+const MOBILE_SPEED_MULT = window.innerWidth <= 768 ? 2.2 : 1.0;
+
 const Resume = () => {
   const [paused, setPaused] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -45,23 +48,23 @@ const Resume = () => {
   return (
     <div className="resume-page">
       <Comet image={sizzlerLogo}
-        startX={0.15} speed={6.5} color={COLOR_SIZZLER}
+        startX={0.15} speed={6.5 * MOBILE_SPEED_MULT} color={COLOR_SIZZLER}
         startDelay={600} paused={paused} jobs={JOBS_SIZZLER}
         jobDetails={JOB_DETAILS} />
       <Comet image={ritzLogo}
-        startX={0.3} speed={5.25} color={COLOR_RITZ}
+        startX={0.3} speed={5.25 * MOBILE_SPEED_MULT} color={COLOR_RITZ}
         fade={.4} paused={paused} jobs={JOBS_RITZ}
         jobDetails={JOB_DETAILS} />
       <Comet image={degreeLogo}
-        startX={0.5} speed={6.25} color={COLOR_DEGREE}
+        startX={0.5} speed={6.25 * MOBILE_SPEED_MULT} color={COLOR_DEGREE}
         startDelay={1500} paused={paused} jobs={JOBS_DEGREE}
         jobDetails={JOB_DETAILS} />
       <Comet image={amazonLogo}
-        startX={0.7} speed={5.75} color={COLOR_AMAZON}
+        startX={0.7} speed={5.75 * MOBILE_SPEED_MULT} color={COLOR_AMAZON}
         startDelay={1500} paused={paused} jobs={JOBS_AMAZON}
         jobDetails={JOB_DETAILS} />
       <Comet image={topgolfLogo}
-        startX={0.85} speed={5.0} color={COLOR_TOPGOLF}
+        startX={0.85} speed={5.0 * MOBILE_SPEED_MULT} color={COLOR_TOPGOLF}
         fade={.6} paused={paused} jobs={JOBS_TOPGOLF}
         jobDetails={JOB_DETAILS} />
       <button

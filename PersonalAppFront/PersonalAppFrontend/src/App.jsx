@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ComingSoon from "./pages/ComingSoon";
+import Home1 from "./pages/Home1";
 import TicTacToe from "./pages/TicTacToe";
 import MemoryGame from "./pages/MemoryGame";
 import SnakeGame from "./pages/SnakeGame";
@@ -15,11 +15,7 @@ function App() {
     <Router>
       <MenuBar />
       <Routes>
-        <Route path="/" element={
-          <div className="app-background">
-            <ComingSoon />
-          </div>
-        } />
+        <Route path="/" element={<Home1 />} />
         <Route path="/tic-tac-toe" element={<TicTacToe />} />
         <Route path="/memory-game" element={<MemoryGame />} />
         <Route path="/snake-game" element={<SnakeGame />} />

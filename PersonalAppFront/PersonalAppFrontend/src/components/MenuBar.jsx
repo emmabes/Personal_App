@@ -25,7 +25,7 @@ const MenuBar = () => {
       { label: 'Home', action: () => { navigate('/'); setIsOpen(false); } },
       { label: 'Resume', action: () => { navigate('/resume'); setIsOpen(false); } },
       { label: 'Games', action: () => navigateToSubmenu('games') },
-      // { label: 'Scratch', action: () => { navigate('/scratch'); setIsOpen(false); } },
+      { label: 'Scratch', action: () => { navigate('/scratch'); setIsOpen(false); } },
       { label: 'About', action: () => { console.log('About'); setIsOpen(false); } }
     ],
     games: [
