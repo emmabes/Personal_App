@@ -7,6 +7,7 @@ import SnakeGame from "./pages/SnakeGame";
 import SudokuGame from "./pages/SudokuGame";
 import Resume from "./pages/Resume";
 import Scratch from "./pages/Scratch";
+import Seth from "./pages/Seth";
 import MenuBar from "./components/MenuBar";
 import "./App.css";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/sudoku-game" element={<SudokuGame />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/scratch" element={<Scratch />} />
+        <Route path="/seth" element={<Seth />} />
       </Routes>
     </Router>
   );

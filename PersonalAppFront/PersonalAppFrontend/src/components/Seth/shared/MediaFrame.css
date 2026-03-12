@@ -1,0 +1,64 @@
+.mf {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  overflow: hidden;
+}
+
+.mf--fill {
+  position: absolute;
+  inset: 0;
+  min-height: unset;
+  height: 100%;
+}
+
+.mf__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  text-align: center;
+  max-width: 480px;
+}
+
+.mf__badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+}
+
+.mf__asset {
+  font-size: 0.65rem;
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.05em;
+}
+
+.mf__description {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.28);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Real media */
+.mf__video,
+.mf__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
