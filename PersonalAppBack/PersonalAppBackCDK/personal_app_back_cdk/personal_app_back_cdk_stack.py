@@ -93,8 +93,7 @@ class PersonalAppBackCDKStack(Stack):
             ),
             sign_in_aliases=cognito.SignInAliases(email=True),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
-            removal_policy=RemovalPolicy.DESTROY,
-            auto_delete_objects=True
+            removal_policy=RemovalPolicy.DESTROY
         )
 
         user_pool_client = user_pool.add_client(
