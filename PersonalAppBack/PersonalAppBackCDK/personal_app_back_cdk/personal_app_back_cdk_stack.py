@@ -2,10 +2,11 @@ import os
 import shutil
 import subprocess
 
-from aws_cdk import BundlingOptions, CfnOutput, DockerImage, Duration, ILocalBundling, Stack
+from aws_cdk import BundlingOptions, CfnOutput, DockerImage, Duration, ILocalBundling, Stack, RemovalPolicy
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_secretsmanager as secretsmanager
 from aws_cdk import aws_apigateway as apigw
+from aws_cdk import aws_cognito as cognito
 from constructs import Construct
 import jsii
 
@@ -80,6 +81,66 @@ class PersonalAppBackCDKStack(Stack):
         signing_secret.grant_read(sign_url_fn)
         key_pair_id_secret.grant_read(sign_url_fn)
 
+        # --- Cognito Identity Infrastructure (Phase 1) ---
+        user_pool = cognito.UserPool(
+            self, "UserPool",
+            user_pool_name="personal-app-user-pool",
+            self_sign_up_enabled=True,
+            user_verification=cognito.UserVerificationConfig(
+                email_subject="Verify your email for ErikMabes.com",
+                email_body="Thanks for signing up! Your verification code is {####}",
+                email_style=cognito.VerificationEmailStyle.CODE
+            ),
+            sign_in_aliases=cognito.SignInAliases(email=True),
+            auto_verify=cognito.AutoVerifiedAttrs(email=True),
+            removal_policy=RemovalPolicy.DESTROY,
+            auto_delete_objects=True
+        )
+
+        user_pool_client = user_pool.add_client(
+            "UserPoolClient",
+            user_pool_client_name="personal-app-client",
+            o_auth=cognito.OAuthSettings(
+                flows=cognito.OAuthFlows(
+                    authorization_code_grant=True
+                ),
+                scopes=[cognito.OAuthScope.OPENID, cognito.OAuthScope.EMAIL, cognito.OAuthScope.PROFILE],
+                callback_urls=[
+                    "http://localhost:5173/callback", 
+                    "https://erikmabes.com/callback", 
+                    "https://www.erikmabes.com/callback"
+                ]
+            )
+        )
+
+        user_pool.add_domain(
+            "UserPoolDomain",
+            cognito_domain=cognito.CognitoDomainOptions(
+                domain_prefix="erikmabes-auth"
+            )
+        )
+
+        # RBAC Groups
+        cognito.CfnUserPoolGroup(
+            self, "AdminGroup",
+            user_pool_id=user_pool.user_pool_id,
+            group_name="Admin",
+            description="Full administrator access"
+        )
+
+        cognito.CfnUserPoolGroup(
+            self, "UserGroup",
+            user_pool_id=user_pool.user_pool_id,
+            group_name="User",
+            description="Standard functional access"
+        )
+
+        # --- API Security (Phase 2) ---
+        authorizer = apigw.CognitoUserPoolsAuthorizer(
+            self, "UserPoolAuthorizer",
+            cognito_user_pools=[user_pool]
+        )
+
         # API Gateway REST API with stage-level throttling.
         # burst_limit=5: max simultaneous requests allowed before throttling kicks in.
         # rate_limit=2: steady-state requests per second across the whole stage.
@@ -99,13 +160,17 @@ class PersonalAppBackCDKStack(Stack):
         sign_url_resource.add_method(
             "GET",
             apigw.LambdaIntegration(sign_url_fn),
+            authorizer=authorizer,
+            authorization_type=apigw.AuthorizationType.COGNITO
         )
 
         # CORS preflight for the /sign-url resource
         sign_url_resource.add_cors_preflight(
             allow_origins=["https://erikmabes.com", "https://www.erikmabes.com"],
-            allow_methods=["GET"],
-            allow_headers=["content-type"],
+            allow_methods=["GET", "OPTIONS"],
+            allow_headers=["content-type", "authorization"], # Added authorization header for JWT
         )
 
         CfnOutput(self, "SignUrlApiEndpoint", value=f"{api.url}sign-url")
+        CfnOutput(self, "UserPoolId", value=user_pool.user_pool_id)
+        CfnOutput(self, "UserPoolClientId", value=user_pool_client.user_pool_client_id)
