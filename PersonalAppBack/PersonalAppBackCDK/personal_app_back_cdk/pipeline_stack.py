@@ -23,7 +23,6 @@ class BackendPipelineStack(Stack):
                     authentication=SecretValue.secrets_manager('personal_app_frontend_pipeline_token')
                 ),
                 commands=[
-                    '. $NVM_DIR/nvm.sh && nvm install 20 && nvm use 20',
                     'cd PersonalAppBack/PersonalAppBackCDK',
                     'pip install -r requirements.txt',
                     'npx cdk synth'
