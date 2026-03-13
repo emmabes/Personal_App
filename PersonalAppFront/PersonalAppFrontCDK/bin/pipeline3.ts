@@ -59,8 +59,13 @@ export class FrontendPipelineStack extends Stack {
         commands: [
           "cd PersonalAppFront/PersonalAppFrontend",
           "npm install",
+          // Inject Cognito IDs for production build
+          "export VITE_USER_POOL_ID=us-west-2_FAOYSaVSV",
+          "export VITE_USER_POOL_CLIENT_ID=268824u9eh826th8ppm0mv258s",
+          "export VITE_SIGN_URL_ENDPOINT=https://93jkc3lp2a.execute-api.us-west-2.amazonaws.com/prod/sign-url",
           "npm run build",
-          "export BUCKET_NAME=personal-app-frontent-$(aws sts get-caller-identity --query Account --output text)",
+          // Fixed 'frontent' -> 'frontend' typo
+          "export BUCKET_NAME=personal-app-frontend-$(aws sts get-caller-identity --query Account --output text)",
           "aws s3 sync dist/ s3://$BUCKET_NAME/ --delete",
         ],
       })

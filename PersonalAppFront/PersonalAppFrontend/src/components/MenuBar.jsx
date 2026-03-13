@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "react-oidc-context";
 import './MenuBar.css';
 
 const MenuBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentMenu, setCurrentMenu] = useState('main');
+  const auth = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -18,14 +21,18 @@ const MenuBar = () => {
     setCurrentMenu('main');
   };
 
-  const navigate = useNavigate();
+  const handleSignOut = () => {
+    auth.removeUser();
+    // Cognito doesn't support a simple GET logout for OIDC without extra config,
+    // so we just clear the local session.
+    setIsOpen(false);
+  };
 
   const menuData = {
     main: [
       { label: 'Home', action: () => { navigate('/'); setIsOpen(false); } },
       { label: 'Resume', action: () => { navigate('/resume'); setIsOpen(false); } },
       { label: 'Games', action: () => navigateToSubmenu('games') },
-      // { label: 'Scratch', action: () => { navigate('/scratch'); setIsOpen(false); } },
       { label: 'About', action: () => { navigate('/about'); setIsOpen(false); } }
     ],
     games: [
@@ -42,6 +49,13 @@ const MenuBar = () => {
       <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
         ☰
       </button>
+      
+      {auth.isAuthenticated && (
+        <div className="user-status-indicator">
+           Logged in as {auth.user?.profile?.email}
+        </div>
+      )}
+
       <div className={`menu-content ${isOpen ? 'open' : ''}`}>
         <div className={`menu-level ${currentMenu === 'main' ? 'active' : 'slide-left'}`}>
           {menuData.main.map((item, index) => (
@@ -49,7 +63,20 @@ const MenuBar = () => {
               {item.label}
             </button>
           ))}
+          
+          <div className="menu-separator" />
+          
+          {auth.isAuthenticated ? (
+            <button className="menu-item auth-button" onClick={handleSignOut}>
+              Logout
+            </button>
+          ) : (
+            <button className="menu-item auth-button" onClick={() => auth.signinRedirect()}>
+              Login / Sign Up
+            </button>
+          )}
         </div>
+        
         <div className={`menu-level ${currentMenu === 'games' ? 'active' : 'slide-right'}`}>
           {menuData.games.map((item, index) => (
             <button 

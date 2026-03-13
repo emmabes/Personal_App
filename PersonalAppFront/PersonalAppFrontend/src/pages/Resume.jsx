@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from "react-oidc-context";
 import Comet from '../components/Comet';
 import ResumeTutorial from '../components/ResumeTutorial';
 import amazonLogo from '../assets/job logos/amazon_logo.png';
@@ -30,9 +31,11 @@ const Resume = () => {
   const [paused, setPaused] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const auth = useAuth();
 
   const handleDownload = async () => {
     if (downloading || !SIGN_URL_ENDPOINT) return;
+    
     setDownloading(true);
     try {
       const res = await fetch(SIGN_URL_ENDPOINT);
@@ -40,6 +43,7 @@ const Resume = () => {
       window.open(url, '_blank');
     } catch (err) {
       console.error('Download failed:', err);
+      alert("Failed to get download URL. This endpoint is rate-limited.");
     } finally {
       setDownloading(false);
     }
@@ -91,7 +95,7 @@ const Resume = () => {
           disabled={downloading}
           title="Download Resume"
         >
-{downloading ? '\u23F3' : '\u2913'}
+          {downloading ? '\u23F3' : '\u2913'}
         </button>
         <a
           className="resume-toolbar__btn"

@@ -117,3 +117,35 @@
   z-index: 3000;
   backdrop-filter: blur(2px);
 }
+
+.user-status-indicator {
+  position: fixed;
+  top: 15px;
+  left: 75px;
+  color: #00e5ff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  z-index: 3006;
+  background: rgba(6, 8, 15, 0.7);
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  pointer-events: none;
+}
+
+.menu-separator {
+  height: 1px;
+  background: rgba(192, 192, 192, 0.2);
+  margin: 20px 25px;
+}
+
+.auth-button {
+  color: #00e5ff;
+  font-weight: 500;
+  border-bottom: none;
+}
+
+.auth-button:hover {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00e5ff;
+}

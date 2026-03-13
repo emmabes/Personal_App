@@ -18,7 +18,7 @@ class PythonLocalBundling:
                    user=None, security_opt=None, network=None,
                    bundling_file_access=None) -> bool:
         source_dir = os.path.join(
-            os.path.dirname(__file__), "..", "lambda", "sign_url"
+            os.path.dirname(__file__), "..", "lambda_funcs", "sign_url"
         )
         subprocess.check_call([
             "pip", "install", "cryptography", "cffi",
@@ -56,7 +56,7 @@ class PersonalAppBackCDKStack(Stack):
             runtime=_lambda.Runtime.PYTHON_3_12,
             handler="handler.handler",
             code=_lambda.Code.from_asset(
-                os.path.join(os.path.dirname(__file__), "..", "lambda", "sign_url"),
+                os.path.join(os.path.dirname(__file__), "..", "lambda_funcs", "sign_url"),
                 bundling=BundlingOptions(
                     local=PythonLocalBundling(),
                     image=DockerImage.from_registry("public.ecr.aws/sam/build-python3.12"),
@@ -93,7 +93,20 @@ class PersonalAppBackCDKStack(Stack):
             ),
             sign_in_aliases=cognito.SignInAliases(email=True),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
-            removal_policy=RemovalPolicy.DESTROY
+            removal_policy=RemovalPolicy.DESTROY,
+            mfa=cognito.Mfa.OPTIONAL, # Allows users to set up TOTP
+            mfa_second_factor=cognito.MfaSecondFactor(
+                otp=True, 
+                sms=False # Prefer TOTP (Free) over SMS (Cost)
+            ),
+            password_policy=cognito.PasswordPolicy(
+                min_length=12,
+                require_lowercase=True,
+                require_uppercase=True,
+                require_digits=True,
+                require_symbols=True,
+            ),
+            advanced_security_mode=cognito.AdvancedSecurityMode.AUDIT # Monitors for suspicious login activity
         )
 
         user_pool_client = user_pool.add_client(
@@ -158,9 +171,7 @@ class PersonalAppBackCDKStack(Stack):
         sign_url_resource = api.root.add_resource("sign-url")
         sign_url_resource.add_method(
             "GET",
-            apigw.LambdaIntegration(sign_url_fn),
-            authorizer=authorizer,
-            authorization_type=apigw.AuthorizationType.COGNITO
+            apigw.LambdaIntegration(sign_url_fn)
         )
 
         # CORS preflight for the /sign-url resource
