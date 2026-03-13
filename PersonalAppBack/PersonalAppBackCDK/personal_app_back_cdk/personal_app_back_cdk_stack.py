@@ -147,12 +147,6 @@ class PersonalAppBackCDKStack(Stack):
             description="Standard functional access"
         )
 
-        # --- API Security (Phase 2) ---
-        authorizer = apigw.CognitoUserPoolsAuthorizer(
-            self, "UserPoolAuthorizer",
-            cognito_user_pools=[user_pool]
-        )
-
         # API Gateway REST API with stage-level throttling.
         # burst_limit=5: max simultaneous requests allowed before throttling kicks in.
         # rate_limit=2: steady-state requests per second across the whole stage.
