@@ -15,7 +15,7 @@ const COLOR_AMAZON = [255, 220, 160];
 const COLOR_TOPGOLF = [160, 160, 255];
 const COLOR_DEGREE = [100, 100, 255];
 
-const JOBS_SIZZLER = ['Manager, Training Supervisor', 'Project Manager', 'Director of Operations'];
+const JOBS_SIZZLER = ['Director of Operations', 'Project Manager', 'Manager, Training Supervisor', ];
 const JOBS_RITZ = ['Shift Lead, Training Server'];
 const JOBS_AMAZON = ['Software Development Engineer I', 'Amazon Technical Academy', 'Project Coordinator', 'Staffing Ambassador', 'Fulfillment Associate'];
 const JOBS_TOPGOLF = ['Lead Bartender, Certified Trainer'];

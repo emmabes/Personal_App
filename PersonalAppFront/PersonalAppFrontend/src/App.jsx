@@ -8,6 +8,7 @@ import SudokuGame from "./pages/SudokuGame";
 import Resume from "./pages/Resume";
 import Scratch from "./pages/Scratch";
 import Seth from "./pages/Seth";
+import AboutMe from "./components/AboutMe/AboutMe3";
 import MenuBar from "./components/MenuBar";
 import "./App.css";
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/resume" element={<Resume />} />
         <Route path="/scratch" element={<Scratch />} />
         <Route path="/seth" element={<Seth />} />
+        <Route path="/about" element={<AboutMe />} />
       </Routes>
     </Router>
   );

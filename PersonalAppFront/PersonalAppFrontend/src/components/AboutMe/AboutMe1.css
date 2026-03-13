@@ -1,0 +1,349 @@
+/* ═══════════════════════════════════════════
+   ABOUT ME 1 — SIGNAL & SOUL
+   Vertical timeline. Glowing left rail with
+   pulsing nodes. Cyber palette + warm amber
+   for family chapters.
+   ═══════════════════════════════════════════ */
+
+.am1-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #06080F;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scanlines */
+.am1-scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 229, 255, 0.018) 3px,
+    rgba(0, 229, 255, 0.018) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── HEADER ── */
+.am1-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 6.5rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.am1-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.am1-eyebrow-text {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #00E5FF;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.am1-eyebrow-line {
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(to right, transparent, #00E5FF55);
+  flex-shrink: 0;
+}
+.am1-eyebrow-line--right {
+  background: linear-gradient(to left, transparent, #00E5FF55);
+  flex: 1;
+  max-width: 120px;
+}
+
+.am1-name {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.am1-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.am1-divider-line {
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(to right, #00E5FF, #FF6B00);
+}
+
+.am1-divider-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF6B00;
+  box-shadow: 0 0 10px #FF6B00;
+}
+
+.am1-tagline {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.38);
+  margin: 0;
+}
+
+/* ── INTRO 2-COL ── */
+.am1-intro {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem 3rem 4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.am1-intro__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.am1-intro__text p {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.88;
+  color: rgba(255, 255, 255, 0.52);
+  text-align: left;
+  margin: 0;
+}
+
+/* ── TIMELINE WRAPPER ── */
+.am1-timeline-wrap {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.am1-timeline {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 3rem 4rem;
+  box-sizing: border-box;
+}
+
+/* ── CHAPTER ROW ── */
+.am1-chapter {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 2.5rem 0;
+  position: relative;
+}
+
+/* Node column — holds the dot and the rail segment */
+.am1-node-col {
+  width: 48px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.2rem;
+  position: relative;
+}
+
+/* Rail line connecting nodes */
+.am1-node-col::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  bottom: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0, 229, 255, 0.2), rgba(0, 229, 255, 0.1));
+}
+
+/* Don't draw rail below the last chapter */
+.am1-chapter:last-child .am1-node-col::before {
+  display: none;
+}
+
+.am1-node-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.am1-chapter--cyan .am1-node-dot {
+  background: #00E5FF;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+}
+
+.am1-chapter--amber .am1-node-dot {
+  background: #FF8C40;
+  box-shadow: 0 0 12px rgba(255, 140, 64, 0.7);
+}
+
+/* Pulse ring */
+.am1-node-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  animation: am1-pulse 2.8s ease-out infinite;
+}
+
+.am1-chapter--cyan .am1-node-dot::after {
+  border-color: rgba(0, 229, 255, 0.5);
+}
+
+.am1-chapter--amber .am1-node-dot::after {
+  border-color: rgba(255, 140, 64, 0.5);
+}
+
+@keyframes am1-pulse {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  70%  { transform: scale(2.0); opacity: 0;   }
+  100% { transform: scale(2.0); opacity: 0;   }
+}
+
+/* Chapter content area */
+.am1-chapter-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding-left: 1.5rem;
+}
+
+.am1-chapter-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.am1-num {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+}
+
+.am1-chapter--cyan .am1-num   { color: #00E5FF; opacity: 0.65; }
+.am1-chapter--amber .am1-num  { color: #FF8C40; opacity: 0.65; }
+
+.am1-chapter-title {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.am1-chapter--cyan .am1-chapter-title  { color: #00E5FF; }
+.am1-chapter--amber .am1-chapter-title { color: #FF8C40; }
+
+.am1-chapter-body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.88;
+  color: rgba(255, 255, 255, 0.52);
+  text-align: left;
+  margin: 0;
+  max-width: 620px;
+}
+
+/* ── MEDIA ROW ── */
+.am1-media-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding-bottom: 1rem;
+}
+
+.am1-node-col--spacer {
+  /* Same width as the node column, no dot, just carries the rail line */
+}
+
+.am1-media-frame {
+  flex: 1;
+  padding-left: 1.5rem;
+}
+
+/* ── FOOTER STRIP ── */
+.am1-footer {
+  position: relative;
+  z-index: 2;
+  height: 48px;
+  border-top: 1px solid rgba(0, 229, 255, 0.12);
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+  gap: 1.5rem;
+  margin-top: auto;
+}
+
+.am1-strip-label {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0, 229, 255, 0.4);
+  white-space: nowrap;
+}
+
+.am1-strip-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0, 229, 255, 0.15), rgba(255, 107, 0, 0.15));
+}
+
+.am1-strip-label--right { color: rgba(255, 107, 0, 0.4); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .am1-header  { padding: 5rem 1.5rem 2rem; }
+  .am1-intro   {
+    grid-template-columns: 1fr;
+    padding: 1rem 1.5rem 3rem;
+    gap: 2rem;
+  }
+  .am1-timeline { padding: 0 1rem 3rem; }
+  .am1-chapter-body { font-size: 0.88rem; }
+  .am1-strip-label--right { display: none; }
+}

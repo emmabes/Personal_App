@@ -4,15 +4,33 @@ import homelogo from '../assets/homepage - no background.png';
 import Motivator from '../components/Motivator';
 import './Home1.css';
 
-const bio =
-  'Seasoned software engineer with a decade of experience architecting systems at scale. ' +
-  'From cloud-native platforms processing millions of daily transactions to consumer products ' +
-  'loved by millions — every line of code serves a purpose.';
+const storyParagraphs = [
+  'For a long time, my life was a series of restless questions. I spent years navigating the ' +
+  'high-pressure, physical worlds of restaurant operations and large-scale project management — ' +
+  'environments where "progress" was often measured in shifts survived and P&Ls balanced. I was ' +
+  'good at it, but there was a growing dissatisfaction, a quiet friction against the mundane. I ' +
+  'found myself staring at repetitive tasks and stagnant systems, wondering why we were working ' +
+  'so hard to stand still. I had an insatiable curiosity for how things actually worked under the ' +
+  'hood, and a frustration with any path that didn\'t lead to growth.',
 
-const achievements = [
-  'Transformed legacy monoliths into event-driven microservices across multiple enterprise organizations',
-  'Built and led cross-functional engineering teams in high-velocity, agile environments',
-  'Delivered measurable business impact through platform reliability, performance, and developer experience',
+  'That restlessness eventually led me to a turning point. I realized that if I wanted to see the ' +
+  'horizon, I had to be willing to tear down the walls in front of me. I stepped away from the ' +
+  'comfort of established management roles and dove headfirst into the unknown — moving from the ' +
+  'warehouse floor to the quiet intensity of automation and code. Discovering software wasn\'t just ' +
+  'finding a new career; it was like finally finding the right lens for my eyes. The moment I wrote ' +
+  'my first script to solve a problem that had plagued a team for months, the spark became a fire. ' +
+  'I realized that tech was the ultimate tool for a builder — a way to create progress where there ' +
+  'was only process.',
+
+  'But the "what" of my career has always been secondary to the "why." At my core, I am driven by ' +
+  'a deep-seated commitment to the people in my sphere of influence — whether it\'s showing up as ' +
+  'a father, a provider, or the steady presence my team and family can count on. I carry those roles ' +
+  'with pride. Every line of code I write and every complex system I architect is fueled by that ' +
+  'responsibility. My journey from neuroscience to operations to software engineering is a testament ' +
+  'to an obsession with finding the best version of myself. I don\'t just want to participate in ' +
+  'the industry — I want to master it, lead within it, and build a legacy of excellence for those ' +
+  'who depend on me. This is my story of exploration, the courage to change, and the relentless ' +
+  'pursuit of a life well-built.',
 ];
 
 function Home1() {
@@ -22,9 +40,12 @@ function Home1() {
     <div className="h1-root">
       <div className="h1-scanlines" />
 
-      <div className="h1-hero">
-        {/* LEFT — Text column */}
+      <div className="h1-article">
+
+        {/* ── LEFT — article text column ── */}
         <div className="h1-left">
+
+          {/* Header identity block */}
           <div className="h1-eyebrow">
             <span className="h1-eyebrow-line" />
             <span className="h1-eyebrow-text">Full-Stack Engineer &nbsp;·&nbsp; Cloud Architect</span>
@@ -38,30 +59,37 @@ function Home1() {
             <span className="h1-divider-dot" />
           </div>
 
-          <p className="h1-bio">{bio}</p>
-
-          <ul className="h1-achievements">
-            {achievements.map((a, i) => (
-              <li key={i}>
-                <span className="h1-num">0{i + 1}</span>
-                {a}
-              </li>
-            ))}
-          </ul>
-
+          {/* CTAs — immediately accessible */}
           <div className="h1-cta">
             <div className="h1-btn-row">
-              <button className="h1-btn h1-cyan" onClick={() => navigate('/resume')}>Resume</button>
-              <button className="h1-btn h1-orange" onClick={() => navigate('/tic-tac-toe')}>Games <br></br>(For Fun!)</button>
-              <button className="h1-btn h1-blue" onClick={() => {}}>About Me</button>
+              <button className="h1-btn h1-cyan"   onClick={() => navigate('/resume')}>Resume</button>
+              <button className="h1-btn h1-orange"  onClick={() => navigate('/tic-tac-toe')}>Games<br />(For Fun!)</button>
+              <button className="h1-btn h1-blue"    onClick={() => navigate('/about')}>About Me</button>
             </div>
             <div className="h1-love-row">
               <Motivator />
             </div>
           </div>
+
+          {/* Story chapter marker */}
+          <div className="h1-story-label">
+            <div className="h1-eyebrow">
+              <span className="h1-eyebrow-line" />
+              <span className="h1-eyebrow-text">The Story</span>
+              <span className="h1-eyebrow-line h1-eyebrow-line--right" />
+            </div>
+          </div>
+
+          {/* Full narrative — no truncation, no repetition */}
+          <div className="h1-story-body">
+            {storyParagraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+
         </div>
 
-        {/* RIGHT — Portrait */}
+        {/* ── RIGHT — sticky portrait ── */}
         <div className="h1-right">
           <div className="h1-ring h1-ring-1" />
           <div className="h1-ring h1-ring-2" />
@@ -69,6 +97,7 @@ function Home1() {
           <div className="h1-glow" />
           <img src={homelogo} alt="Erik Mabes" className="h1-portrait" />
         </div>
+
       </div>
 
       {/* Bottom accent strip */}

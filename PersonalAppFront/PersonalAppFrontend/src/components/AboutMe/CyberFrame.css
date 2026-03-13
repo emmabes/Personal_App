@@ -1,0 +1,87 @@
+/* ══════════════════════════════════════════
+   CYBER FRAME — Cyber-themed media frame
+   Placeholder: dashed cyan + badge + desc.
+   With src: cover-fit image.
+   ══════════════════════════════════════════ */
+
+.cf {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  background: rgba(0, 229, 255, 0.03);
+  border: 1px dashed rgba(0, 229, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Corner bracket accents */
+.cf::before,
+.cf::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(0, 229, 255, 0.35);
+  border-style: solid;
+  z-index: 2;
+  pointer-events: none;
+}
+.cf::before { top: 6px;    left: 6px;   border-width: 2px 0 0 2px; }
+.cf::after  { bottom: 6px; right: 6px;  border-width: 0 2px 2px 0; }
+
+/* ── Placeholder ── */
+.cf__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 2rem;
+  text-align: center;
+  max-width: 320px;
+}
+
+.cf__badge {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(0, 229, 255, 0.45);
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  padding: 0.2rem 0.65rem;
+  border-radius: 2px;
+}
+
+.cf__desc {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(0, 229, 255, 0.28);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Real media ── */
+.cf__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cf__caption {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+  z-index: 2;
+  pointer-events: none;
+}
