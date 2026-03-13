@@ -94,19 +94,11 @@ class PersonalAppBackCDKStack(Stack):
             sign_in_aliases=cognito.SignInAliases(email=True),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
             removal_policy=RemovalPolicy.DESTROY,
-            mfa=cognito.Mfa.OPTIONAL, # Allows users to set up TOTP
+            mfa=cognito.Mfa.OPTIONAL,
             mfa_second_factor=cognito.MfaSecondFactor(
                 otp=True, 
-                sms=False # Prefer TOTP (Free) over SMS (Cost)
-            ),
-            password_policy=cognito.PasswordPolicy(
-                min_length=12,
-                require_lowercase=True,
-                require_uppercase=True,
-                require_digits=True,
-                require_symbols=True,
-            ),
-            advanced_security_mode=cognito.AdvancedSecurityMode.AUDIT # Monitors for suspicious login activity
+                sms=False
+            )
         )
 
         user_pool_client = user_pool.add_client(
