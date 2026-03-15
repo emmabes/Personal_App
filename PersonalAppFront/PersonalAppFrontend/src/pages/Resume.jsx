@@ -40,7 +40,15 @@ const Resume = () => {
     try {
       const res = await fetch(SIGN_URL_ENDPOINT);
       const { url } = await res.json();
-      window.open(url, '_blank');
+      // window.open() after an await is treated as a non-user-gesture popup by most browsers
+      // and will be blocked. Programmatic anchor click bypasses this restriction.
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     } catch (err) {
       console.error('Download failed:', err);
       alert("Failed to get download URL. This endpoint is rate-limited.");

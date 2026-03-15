@@ -7,6 +7,8 @@ from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_secretsmanager as secretsmanager
 from aws_cdk import aws_apigateway as apigw
 from aws_cdk import aws_cognito as cognito
+from aws_cdk import aws_iam as iam
+from aws_cdk import aws_wafv2 as wafv2
 from constructs import Construct
 import jsii
 
@@ -93,7 +95,7 @@ class PersonalAppBackCDKStack(Stack):
             ),
             sign_in_aliases=cognito.SignInAliases(email=True),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
-            removal_policy=RemovalPolicy.DESTROY,
+            removal_policy=RemovalPolicy.RETAIN,
             mfa=cognito.Mfa.OPTIONAL,
             mfa_second_factor=cognito.MfaSecondFactor(
                 otp=True, 
@@ -110,9 +112,12 @@ class PersonalAppBackCDKStack(Stack):
                 ),
                 scopes=[cognito.OAuthScope.OPENID, cognito.OAuthScope.EMAIL, cognito.OAuthScope.PROFILE],
                 callback_urls=[
-                    "http://localhost:5173/callback", 
-                    "https://erikmabes.com/callback", 
-                    "https://www.erikmabes.com/callback"
+                    "https://erikmabes.com/callback",
+                    "https://www.erikmabes.com/callback",
+                ],
+                logout_urls=[
+                    "https://erikmabes.com/",
+                    "https://www.erikmabes.com/",
                 ]
             )
         )
@@ -137,6 +142,32 @@ class PersonalAppBackCDKStack(Stack):
             user_pool_id=user_pool.user_pool_id,
             group_name="User",
             description="Standard functional access"
+        )
+
+        # PostConfirmation trigger: auto-assign every new verified user to the User group.
+        # Admins can be manually promoted via the Cognito console.
+        auto_assign_group_fn = _lambda.Function(
+            self,
+            "AutoAssignGroupFunction",
+            runtime=_lambda.Runtime.PYTHON_3_12,
+            handler="handler.handler",
+            code=_lambda.Code.from_asset(
+                os.path.join(os.path.dirname(__file__), "..", "lambda_funcs", "auto_assign_group")
+            ),
+            timeout=Duration.seconds(10),
+            memory_size=128,
+        )
+
+        auto_assign_group_fn.add_to_role_policy(
+            iam.PolicyStatement(
+                actions=["cognito-idp:AdminAddUserToGroup"],
+                resources=[user_pool.user_pool_arn],
+            )
+        )
+
+        user_pool.add_trigger(
+            cognito.UserPoolOperation.POST_CONFIRMATION,
+            auto_assign_group_fn,
         )
 
         # API Gateway REST API with stage-level throttling.
@@ -165,6 +196,44 @@ class PersonalAppBackCDKStack(Stack):
             allow_origins=["https://erikmabes.com", "https://www.erikmabes.com"],
             allow_methods=["GET", "OPTIONS"],
             allow_headers=["content-type", "authorization"], # Added authorization header for JWT
+        )
+
+        # WAF — rate-limit per source IP at the API Gateway stage level.
+        # This is a second, independent ceiling on top of API Gateway throttling.
+        # Minimum WAF rate-based limit is 100 requests per 5-minute window.
+        waf_acl = wafv2.CfnWebACL(
+            self, "SignUrlWafAcl",
+            scope="REGIONAL",
+            default_action=wafv2.CfnWebACL.DefaultActionProperty(allow={}),
+            visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
+                cloud_watch_metrics_enabled=True,
+                metric_name="personal-app-sign-url-waf",
+                sampled_requests_enabled=True,
+            ),
+            rules=[
+                wafv2.CfnWebACL.RuleProperty(
+                    name="IPRateLimit",
+                    priority=1,
+                    action=wafv2.CfnWebACL.RuleActionProperty(block={}),
+                    statement=wafv2.CfnWebACL.StatementProperty(
+                        rate_based_statement=wafv2.CfnWebACL.RateBasedStatementProperty(
+                            limit=100,
+                            aggregate_key_type="IP",
+                        )
+                    ),
+                    visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
+                        cloud_watch_metrics_enabled=True,
+                        metric_name="IPRateLimit",
+                        sampled_requests_enabled=True,
+                    ),
+                )
+            ],
+        )
+
+        wafv2.CfnWebACLAssociation(
+            self, "SignUrlWafAssociation",
+            resource_arn=api.deployment_stage.stage_arn,
+            web_acl_arn=waf_acl.attr_arn,
         )
 
         CfnOutput(self, "SignUrlApiEndpoint", value=f"{api.url}sign-url")

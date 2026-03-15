@@ -10,24 +10,27 @@ import Scratch from "./pages/Scratch";
 import Seth from "./pages/Seth";
 import AboutMe from "./components/AboutMe/AboutMe3";
 import MenuBar from "./components/MenuBar";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <MenuBar />
-      <Routes>
-        <Route path="/" element={<Home1 />} />
-        <Route path="/tic-tac-toe" element={<TicTacToe />} />
-        <Route path="/memory-game" element={<MemoryGame />} />
-        <Route path="/snake-game" element={<SnakeGame />} />
-        <Route path="/sudoku-game" element={<SudokuGame />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/scratch" element={<Scratch />} />
-        <Route path="/seth" element={<Seth />} />
-        <Route path="/about" element={<AboutMe />} />
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <MenuBar />
+        <Routes>
+          <Route path="/" element={<Home1 />} />
+          <Route path="/tic-tac-toe" element={<TicTacToe />} />
+          <Route path="/memory-game" element={<MemoryGame />} />
+          <Route path="/snake-game" element={<SnakeGame />} />
+          <Route path="/sudoku-game" element={<SudokuGame />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/scratch" element={<Scratch />} />
+          <Route path="/seth" element={<Seth />} />
+          <Route path="/about" element={<AboutMe />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

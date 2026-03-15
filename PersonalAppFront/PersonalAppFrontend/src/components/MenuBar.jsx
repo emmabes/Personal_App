@@ -21,11 +21,13 @@ const MenuBar = () => {
     setCurrentMenu('main');
   };
 
-  const handleSignOut = () => {
-    auth.removeUser();
-    // Cognito doesn't support a simple GET logout for OIDC without extra config,
-    // so we just clear the local session.
-    setIsOpen(false);
+  const handleSignOut = async () => {
+    await auth.removeUser();
+    // Redirect to Cognito's logout endpoint to clear the SSO session cookie.
+    // Without this step, clicking Login again would silently re-authenticate
+    // the user without prompting for credentials.
+    const logoutUri = encodeURIComponent(window.location.origin + "/");
+    window.location.href = `${import.meta.env.VITE_COGNITO_DOMAIN}/logout?client_id=${import.meta.env.VITE_USER_POOL_CLIENT_ID}&logout_uri=${logoutUri}`;
   };
 
   const menuData = {

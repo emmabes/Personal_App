@@ -14,7 +14,7 @@ import {
   CodeBuildAction,
   GitHubSourceAction,
 } from "aws-cdk-lib/aws-codepipeline-actions";
-import { PipelineProject, BuildSpec } from "aws-cdk-lib/aws-codebuild";
+import { BuildEnvironmentVariableType, PipelineProject, BuildSpec } from "aws-cdk-lib/aws-codebuild";
 import { PolicyStatement, Effect } from "aws-cdk-lib/aws-iam";
 import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import { PersonalAppFrontendStack } from "./frontend-stack";
@@ -49,6 +49,25 @@ export class FrontendPipelineStack extends cdk.Stack {
       environmentVariables: {
         BUCKET_NAME: { value: frontendStack.siteBucket.bucketName },
         DISTRIBUTION_ID: { value: frontendStack.distributionId },
+        // Vite reads VITE_* env vars from the process environment at build time.
+        // Values are stored in Secrets Manager as a JSON object under personal-app/frontend-config.
+        // CDK automatically grants this CodeBuild role GetSecretValue on the referenced secret.
+        VITE_USER_POOL_ID: {
+          value: "personal-app/frontend-config:VITE_USER_POOL_ID",
+          type: BuildEnvironmentVariableType.SECRETS_MANAGER,
+        },
+        VITE_USER_POOL_CLIENT_ID: {
+          value: "personal-app/frontend-config:VITE_USER_POOL_CLIENT_ID",
+          type: BuildEnvironmentVariableType.SECRETS_MANAGER,
+        },
+        VITE_SIGN_URL_ENDPOINT: {
+          value: "personal-app/frontend-config:VITE_SIGN_URL_ENDPOINT",
+          type: BuildEnvironmentVariableType.SECRETS_MANAGER,
+        },
+        VITE_COGNITO_DOMAIN: {
+          value: "personal-app/frontend-config:VITE_COGNITO_DOMAIN",
+          type: BuildEnvironmentVariableType.SECRETS_MANAGER,
+        },
       }
     });
     buildProject.grantPrincipal.addToPrincipalPolicy(

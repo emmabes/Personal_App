@@ -3,17 +3,16 @@ import { PersAppStackProps } from "./utils/personal_app";
 import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import {
-  CfnCloudFrontOriginAccessIdentity,
   CfnDistribution,
   CfnKeyGroup,
+  CfnOriginAccessControl,
   CfnPublicKey,
-  Distribution,
-  OriginAccessIdentity,
+  CfnResponseHeadersPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import {
-  CanonicalUserPrincipal,
   Effect,
   PolicyStatement,
+  ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
 import { CfnSecret } from "aws-cdk-lib/aws-secretsmanager";
@@ -50,8 +49,14 @@ export class PersonalAppFrontendStack extends Stack {
       serverAccessLogsPrefix: "access-logs/"
     });
 
-    const originAccessIdentity = new OriginAccessIdentity(this, `OAI-${environment.deployment}`, {
-      comment: "Allows CloudFront to access the S3 bucket",
+    const originAccessControl = new CfnOriginAccessControl(this, `OAC-${environment.deployment}`, {
+      originAccessControlConfig: {
+        name: `pers-app-oac-${environment.deployment}`,
+        originAccessControlOriginType: "s3",
+        signingBehavior: "always",
+        signingProtocol: "sigv4",
+        description: "Allows CloudFront to access the S3 bucket via SigV4",
+      },
     });
 
     const cfSigningPublicKey = new CfnPublicKey(this, `CfSigningPublicKey-${environment.deployment}`, {
@@ -79,6 +84,44 @@ export class PersonalAppFrontendStack extends Stack {
       },
     });
 
+    // Security headers applied to all HTML/asset responses.
+    // connect-src must list every domain the SPA fetches from at runtime.
+    const securityHeadersPolicy = new CfnResponseHeadersPolicy(this, `SecurityHeaders-${environment.deployment}`, {
+      responseHeadersPolicyConfig: {
+        name: `pers-app-security-headers-${environment.deployment}`,
+        securityHeadersConfig: {
+          contentSecurityPolicy: {
+            contentSecurityPolicy: [
+              "default-src 'self'",
+              "script-src 'self'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob:",
+              "font-src 'self'",
+              "connect-src 'self' https://cognito-idp.us-west-2.amazonaws.com https://erikmabes-auth.auth.us-west-2.amazoncognito.com https://93jkc3lp2a.execute-api.us-west-2.amazonaws.com",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "object-src 'none'",
+            ].join("; "),
+            override: true,
+          },
+          strictTransportSecurity: {
+            accessControlMaxAgeSec: 31536000,
+            includeSubdomains: true,
+            override: true,
+          },
+          frameOptions: {
+            frameOption: "DENY",
+            override: true,
+          },
+          contentTypeOptions: { override: true },
+          referrerPolicy: {
+            referrerPolicy: "strict-origin-when-cross-origin",
+            override: true,
+          },
+        },
+      },
+    });
+
     const distribution = new CfnDistribution(this, `PersAppFront-${environment.deployment}`, {
       distributionConfig: {
         enabled: true,
@@ -95,6 +138,7 @@ export class PersonalAppFrontendStack extends Stack {
             queryString: false,
             cookies: { forward: "none" },
           },
+          responseHeadersPolicyId: securityHeadersPolicy.ref,
         },
         cacheBehaviors: [
           {
@@ -102,6 +146,7 @@ export class PersonalAppFrontendStack extends Stack {
             targetOriginId: `s3-origin-id-${environment.deployment}`,
             viewerProtocolPolicy: "redirect-to-https",
             cachePolicyId: "4135ea2d-6df8-44a3-9df3-4b5a84be39ad", // Disabling Caching during development; reistate optimized with "658327ea-f89d-4fab-a63d-7e88639e58f6"
+            responseHeadersPolicyId: securityHeadersPolicy.ref,
           },
           {
             pathPattern: "/private/*",
@@ -118,9 +163,9 @@ export class PersonalAppFrontendStack extends Stack {
           {
             id: `s3-origin-id-${environment.deployment}`,
             domainName: this.siteBucket.bucketRegionalDomainName,
-            s3OriginConfig: {
-              originAccessIdentity: `origin-access-identity/cloudfront/${originAccessIdentity.originAccessIdentityId}`,
-            },
+            // Empty string signals S3 REST origin (required when using OAC instead of OAI)
+            s3OriginConfig: { originAccessIdentity: "" },
+            originAccessControlId: originAccessControl.attrId,
           },
         ],
         aliases: certificate ? environment.config.domainNames : undefined, // comment out when redploying the stack
@@ -146,16 +191,18 @@ export class PersonalAppFrontendStack extends Stack {
       secretString: cfSigningPublicKey.ref,
     });
 
+    // OAC bucket policy: scope access to this specific distribution, not any CloudFront distribution.
     this.siteBucket.addToResourcePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
         actions: ["s3:GetObject"],
-        principals: [
-          new CanonicalUserPrincipal(
-            originAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId
-          ),
-        ],
+        principals: [new ServicePrincipal("cloudfront.amazonaws.com")],
         resources: [this.siteBucket.arnForObjects("*")],
+        conditions: {
+          StringEquals: {
+            "AWS:SourceArn": `arn:aws:cloudfront::${this.account}:distribution/${distribution.ref}`,
+          },
+        },
       })
     );
 
