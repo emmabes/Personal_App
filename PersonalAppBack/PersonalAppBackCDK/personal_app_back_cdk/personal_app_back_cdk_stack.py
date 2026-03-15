@@ -158,10 +158,15 @@ class PersonalAppBackCDKStack(Stack):
             memory_size=128,
         )
 
+        # Intentionally scoped to userpool/* (not the exact pool ARN) to break the
+        # circular dependency: UserPool needs Lambda ARN (trigger), Lambda IAM policy
+        # needed UserPool ARN — referencing user_pool.user_pool_arn created a cycle.
+        # Scoping to account+region+service is still tightly bounded; the Lambda can
+        # only be invoked by Cognito for this specific pool anyway.
         auto_assign_group_fn.add_to_role_policy(
             iam.PolicyStatement(
                 actions=["cognito-idp:AdminAddUserToGroup"],
-                resources=[user_pool.user_pool_arn],
+                resources=[f"arn:aws:cognito-idp:{self.region}:{self.account}:userpool/*"],
             )
         )
 
