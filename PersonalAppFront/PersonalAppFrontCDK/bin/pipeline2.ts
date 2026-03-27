@@ -27,7 +27,7 @@ export class FrontendPipelineStack extends cdk.Stack {
 
     const sourceOutput = new Artifact();
     const sourceAction = new GitHubSourceAction({
-      actionName: "GithubPersApp",
+      actionName: `GithubPersApp-${environment.deployment}`,
       owner: "emmabes",
       repo: "Personal_App",
       branch: `${environment.branch}`,
