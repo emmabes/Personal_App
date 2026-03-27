@@ -99,14 +99,20 @@ class PersonalAppBackCDKStack(Stack):
             removal_policy=RemovalPolicy.RETAIN,
             mfa=cognito.Mfa.OPTIONAL,
             mfa_second_factor=cognito.MfaSecondFactor(
-                otp=True, 
+                otp=True,
                 sms=False
-            )
+            ),
+            custom_attributes={
+                # Unix timestamp (string) — set manually when granting Preview access.
+                # Backend Lambdas check this to enforce Preview group expiration.
+                "access_expiry": cognito.StringAttribute(mutable=True)
+            }
         )
 
         user_pool_client = user_pool.add_client(
             "UserPoolClient",
             user_pool_client_name="personal-app-client",
+            id_token_validity=Duration.hours(24),
             o_auth=cognito.OAuthSettings(
                 flows=cognito.OAuthFlows(
                     authorization_code_grant=True
@@ -120,7 +126,10 @@ class PersonalAppBackCDKStack(Stack):
                     "https://erikmabes.com/",
                     "https://www.erikmabes.com/",
                 ]
-            )
+            ),
+            read_attributes=cognito.ClientAttributes()
+                .with_standard_attributes(cognito.StandardAttributesMask(email=True))
+                .with_custom_attributes("access_expiry"),
         )
 
         user_pool.add_domain(
@@ -136,6 +145,20 @@ class PersonalAppBackCDKStack(Stack):
             user_pool_id=user_pool.user_pool_id,
             group_name="Admin",
             description="Full administrator access"
+        )
+
+        cognito.CfnUserPoolGroup(
+            self, "CollaboratorGroup",
+            user_pool_id=user_pool.user_pool_id,
+            group_name="Collaborator",
+            description="Elevated access — trusted collaborators; manually granted"
+        )
+
+        cognito.CfnUserPoolGroup(
+            self, "PreviewGroup",
+            user_pool_id=user_pool.user_pool_id,
+            group_name="Preview",
+            description="Temporary elevated access — expires per custom:access_expiry attribute"
         )
 
         cognito.CfnUserPoolGroup(
