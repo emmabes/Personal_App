@@ -74,12 +74,17 @@
 }
 
 /* ── INSTRUCTIONS BUTTON ── */
-.resume-instructions-btn {
+.resume-top-btns {
   position: absolute;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+.resume-instructions-btn {
   padding: 0 16px;
   height: 32px;
   border-radius: 4px;

@@ -6,6 +6,8 @@ import MemoryGame from "./pages/MemoryGame";
 import SnakeGame from "./pages/SnakeGame";
 import SudokuGame from "./pages/SudokuGame";
 import Resume from "./pages/Resume";
+import ResumeAtAGlance from "./pages/ResumeAtAGlance";
+import WhyHireMe from "./pages/WhyHireMe";
 import Scratch from "./pages/Scratch";
 import Seth from "./pages/Seth";
 import AboutMe from "./components/AboutMe/AboutMe3";
@@ -25,6 +27,8 @@ function App() {
           <Route path="/snake-game" element={<SnakeGame />} />
           <Route path="/sudoku-game" element={<SudokuGame />} />
           <Route path="/resume" element={<Resume />} />
+          <Route path="/resume-at-a-glance" element={<ResumeAtAGlance />} />
+          <Route path="/why-hire" element={<WhyHireMe />} />
           <Route path="/scratch" element={<Scratch />} />
           <Route path="/seth" element={<Seth />} />
           <Route path="/about" element={<AboutMe />} />

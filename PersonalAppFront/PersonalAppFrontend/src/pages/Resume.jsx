@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from "react-oidc-context";
 import Comet from '../components/Comet';
 import ResumeTutorial from '../components/ResumeTutorial';
@@ -32,6 +33,7 @@ const Resume = () => {
   const [downloading, setDownloading] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const handleDownload = async () => {
     if (downloading || !SIGN_URL_ENDPOINT) return;
@@ -79,13 +81,22 @@ const Resume = () => {
         startX={0.85} speed={5.0 * MOBILE_SPEED_MULT} color={COLOR_TOPGOLF}
         fade={.6} paused={paused} jobs={JOBS_TOPGOLF}
         jobDetails={JOB_DETAILS} />
-      <button
-        className="resume-instructions-btn"
-        onClick={() => setShowTutorial(t => !t)}
-        title="How to use"
-      >
-        Instructions
-      </button>
+      <div className="resume-top-btns">
+        <button
+          className="resume-instructions-btn"
+          onClick={() => setShowTutorial(t => !t)}
+          title="How to use"
+        >
+          Instructions
+        </button>
+        <button
+          className="resume-instructions-btn"
+          onClick={() => navigate('/resume-at-a-glance')}
+          title="Resume at a Glance"
+        >
+          At a Glance
+        </button>
+      </div>
 
       <ResumeTutorial show={showTutorial} onClose={() => setShowTutorial(false)} />
 
@@ -107,9 +118,10 @@ const Resume = () => {
         </button>
         <a
           className="resume-toolbar__btn"
-          href="#"
+          href="https://www.linkedin.com/in/erik-mabes-4b6133184/"
           title="LinkedIn"
-          onClick={(e) => e.preventDefault()}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M2 3.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM2.2 6.5h2.6v7H2.2v-7ZM6.5 6.5h2.5v1c.5-.8 1.5-1.2 2.5-1.2 2.2 0 2.5 1.5 2.5 3.4v3.8h-2.6V10.3c0-.9 0-2-1.2-2s-1.4 1-1.4 2v3.2H6.5v-7Z" />
@@ -117,9 +129,10 @@ const Resume = () => {
         </a>
         <a
           className="resume-toolbar__btn"
-          href="#"
+          href="https://github.com/emmabes"
           title="GitHub"
-          onClick={(e) => e.preventDefault()}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 1a7 7 0 0 0-2.21 13.64c.35.06.48-.15.48-.34v-1.2c-1.96.43-2.37-.95-2.37-.95-.32-.81-.78-1.03-.78-1.03-.64-.44.05-.43.05-.43.7.05 1.08.73 1.08.73.63 1.07 1.65.76 2.05.58.06-.46.24-.76.44-.93-1.56-.18-3.2-.78-3.2-3.48 0-.77.27-1.4.73-1.89-.08-.18-.32-.9.07-1.87 0 0 .59-.19 1.94.72a6.76 6.76 0 0 1 3.54 0c1.35-.91 1.94-.72 1.94-.72.39.97.14 1.69.07 1.87.45.5.72 1.12.72 1.89 0 2.71-1.65 3.3-3.22 3.47.26.22.48.66.48 1.33v1.97c0 .19.13.41.48.34A7 7 0 0 0 8 1Z" />

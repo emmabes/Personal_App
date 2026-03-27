@@ -518,6 +518,12 @@
   margin-bottom: 1.5rem;
 }
 
+/* Gallery frames sized to phone portrait ratio */
+.am3-gallery__inner .cf {
+  aspect-ratio: 9 / 16;
+  min-height: unset;
+}
+
 .am3-gallery-label {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   font-size: 0.62rem;
@@ -589,7 +595,7 @@
   }
 
   .am3-eyebrow { justify-content: center; }
-  .am3-hero-bio { text-align: center; max-width: 100%; }
+  .am3-hero-bio { text-align: left; max-width: 100%; }
 
   /* Split: stack */
   .am3-split {

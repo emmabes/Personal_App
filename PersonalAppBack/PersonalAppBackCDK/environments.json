@@ -2,13 +2,17 @@
     "dev": {
         "domainNames": ["dev.erikmabes.com"],
         "envSuffix": "dev",
-        "apiDomain": "api-dev.erikmabes.com", 
-        "dbName": "portfolio-dev"
+        "apiDomain": "api-dev.erikmabes.com",
+        "dbName": "portfolio-dev",
+        "cf_domain": "dev.erikmabes.com",
+        "resource_path": "private/resume.pdf"
     },
     "prod": {
         "domainNames": ["erikmabes.com", "www.erikmabes.com", "ericmabes.com", "www.ericmabes.com"],
         "envSuffix": "prod",
         "apiDomain": "api.erikmabes.com",
-        "dbName": "portfolio-prod"
+        "dbName": "portfolio-prod",
+        "cf_domain": "erikmabes.com",
+        "resource_path": "private/resume.pdf"
     }
 }

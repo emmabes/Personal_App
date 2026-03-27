@@ -41,8 +41,9 @@ class PythonLocalBundling:
 
 
 class PersonalAppBackCDKStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, env_config: dict = None, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+        env_config = env_config or {}
 
         signing_secret = secretsmanager.Secret.from_secret_name_v2(
             self, "CfSigningKey", "personal_app_cf_signing_key"
@@ -75,8 +76,8 @@ class PersonalAppBackCDKStack(Stack):
             environment={
                 "SIGNING_KEY_SECRET_ARN": signing_secret.secret_arn,
                 "KEY_PAIR_ID_SECRET_ARN": key_pair_id_secret.secret_arn,
-                "CF_DOMAIN": "erikmabes.com",
-                "RESOURCE_PATH": "private/resume.pdf",
+                "CF_DOMAIN": env_config.get("cf_domain", "erikmabes.com"),
+                "RESOURCE_PATH": env_config.get("resource_path", "private/resume.pdf"),
             },
         )
 

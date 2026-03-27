@@ -73,26 +73,27 @@ function AboutMe3() {
       <section className="am3-panel">
         <div className="am3-panel__inner">
           <span className="am3-section-eyebrow">01 &nbsp;—&nbsp; Origins</span>
-          <h2 className="am3-panel-heading">A Walking<br />Contradiction</h2>
+          <h2 className="am3-panel-heading">A People<br />Fascination</h2>
           <div className="am3-panel-text">
             <p>
-              I'm a bit of a walking contradiction. I have a B.S. in Neuroscience, which means
+              I've always been intrigued by people. To know them deeper, I got a B.S. in Neuroscience, which means
               I'm perpetually fascinated by the weird ways our brains work — but I've also spent
               a decade in the trenches of hospitality, learning that nothing is more complex, or
               more rewarding, than human connection.
             </p>
             <p>
+              I'm also in love with systems and mechanisms. 
               I'm the guy who will geek out over a perfectly optimized feedback loop one minute
               and then get completely lost in a "family hero" adventure the next. I have a penchant
               for the over-engineered, a love for quirky interests that keep my mind sharp, and a
               stubborn belief that you're never too old to start something new and be great at it.
             </p>
             <p>
-              That restlessness eventually led me to a turning point. I stepped away from established
-              management roles and dove into automation and code. Discovering software wasn't just
-              finding a new career — it was like finally finding the right lens for my eyes. The
-              moment I wrote my first script to solve a problem that had plagued a team for months,
+              Discovering software wasn't just finding a new career — it was like finally finding the right 
+              lens for my eyes. The moment I wrote my first script to print prime numbers up to 10,000,
               the spark became a fire.
+              That fire eventually led me to a turning point. I stepped away from 
+              a history of and progression towards hospitality management and dove into automation and code. 
             </p>
           </div>
         </div>
@@ -221,21 +222,9 @@ function AboutMe3() {
           ═══════════════════════════════════════ */}
       <section className="am3-gallery">
         <div className="am3-gallery__inner">
-          <CyberFrame
-            src={zoe}
-            description="Zoe"
-            style={{ minHeight: '280px' }}
-          />
-          <CyberFrame
-            src={adventure}
-            description="A family adventure — photo placeholder"
-            style={{ minHeight: '280px' }}
-          />
-          <CyberFrame
-            src={ssj}
-            description="A candid moment — photo placeholder"
-            style={{ minHeight: '280px' }}
-          />
+          <CyberFrame src={zoe} description="Zoe" />
+          <CyberFrame src={adventure} description="A family adventure — photo placeholder" />
+          <CyberFrame src={ssj} description="A candid moment — photo placeholder" />
         </div>
         <p className="am3-gallery-label">06 &nbsp;—&nbsp; Moments</p>
       </section>

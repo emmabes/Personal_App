@@ -26,16 +26,22 @@ const MenuBar = () => {
     // Redirect to Cognito's logout endpoint to clear the SSO session cookie.
     // Without this step, clicking Login again would silently re-authenticate
     // the user without prompting for credentials.
-    const logoutUri = encodeURIComponent(window.location.origin + "/");
-    window.location.href = `${import.meta.env.VITE_COGNITO_DOMAIN}/logout?client_id=${import.meta.env.VITE_USER_POOL_CLIENT_ID}&logout_uri=${logoutUri}`;
+    const logoutUri = encodeURIComponent(globalThis.location.origin + "/");
+    globalThis.location.href = `${import.meta.env.VITE_COGNITO_DOMAIN}/logout?client_id=${import.meta.env.VITE_USER_POOL_CLIENT_ID}&logout_uri=${logoutUri}`;
   };
 
   const menuData = {
     main: [
       { label: 'Home', action: () => { navigate('/'); setIsOpen(false); } },
-      { label: 'Resume', action: () => { navigate('/resume'); setIsOpen(false); } },
+      { label: 'Resume', action: () => navigateToSubmenu('resume') },
+      { label: 'Why Me', action: () => { navigate('/why-hire'); setIsOpen(false); } },
       { label: 'Games', action: () => navigateToSubmenu('games') },
       { label: 'About', action: () => { navigate('/about'); setIsOpen(false); } }
+    ],
+    resume: [
+      { label: '← Back', action: goBack, isBack: true },
+      { label: 'Resume — Interactive', action: () => { navigate('/resume'); setIsOpen(false); } },
+      { label: 'Resume — At a Glance', action: () => { navigate('/resume-at-a-glance'); setIsOpen(false); } }
     ],
     games: [
       { label: '← Back', action: goBack, isBack: true },
@@ -60,14 +66,14 @@ const MenuBar = () => {
 
       <div className={`menu-content ${isOpen ? 'open' : ''}`}>
         <div className={`menu-level ${currentMenu === 'main' ? 'active' : 'slide-left'}`}>
-          {menuData.main.map((item, index) => (
-            <button key={index} className="menu-item" onClick={item.action}>
+          {menuData.main.map((item) => (
+            <button key={item.label} className="menu-item" onClick={item.action}>
               {item.label}
             </button>
           ))}
-          
+
           <div className="menu-separator" />
-          
+
           {auth.isAuthenticated ? (
             <button className="menu-item auth-button" onClick={handleSignOut}>
               Logout
@@ -78,12 +84,24 @@ const MenuBar = () => {
             </button>
           )}
         </div>
-        
+
+        <div className={`menu-level ${currentMenu === 'resume' ? 'active' : 'slide-right'}`}>
+          {menuData.resume.map((item) => (
+            <button
+              key={item.label}
+              className={`menu-item ${item.isBack ? 'back-button' : ''}`}
+              onClick={item.action}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
         <div className={`menu-level ${currentMenu === 'games' ? 'active' : 'slide-right'}`}>
-          {menuData.games.map((item, index) => (
-            <button 
-              key={index} 
-              className={`menu-item ${item.isBack ? 'back-button' : ''}`} 
+          {menuData.games.map((item) => (
+            <button
+              key={item.label}
+              className={`menu-item ${item.isBack ? 'back-button' : ''}`}
               onClick={item.action}
             >
               {item.label}
@@ -91,7 +109,16 @@ const MenuBar = () => {
           ))}
         </div>
       </div>
-      {isOpen && <div className="menu-overlay" onClick={toggleMenu} />}
+      {isOpen && (
+        <div
+          className="menu-overlay"
+          role="button"
+          tabIndex={0}
+          onClick={toggleMenu}
+          onKeyDown={(e) => e.key === 'Enter' || e.key === ' ' ? toggleMenu() : undefined}
+          aria-label="Close menu"
+        />
+      )}
     </nav>
   );
 };

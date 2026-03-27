@@ -71,20 +71,13 @@ function Home1() {
             </div>
           </div>
 
-          {/* Story chapter marker */}
+          {/* Story chapter marker — anchors bottom of hero column */}
           <div className="h1-story-label">
             <div className="h1-eyebrow">
               <span className="h1-eyebrow-line" />
               <span className="h1-eyebrow-text">The Story</span>
               <span className="h1-eyebrow-line h1-eyebrow-line--right" />
             </div>
-          </div>
-
-          {/* Full narrative — no truncation, no repetition */}
-          <div className="h1-story-body">
-            {storyParagraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
           </div>
 
         </div>
@@ -98,6 +91,13 @@ function Home1() {
           <img src={homelogo} alt="Erik Mabes" className="h1-portrait" />
         </div>
 
+      </div>
+
+      {/* ── FULL-WIDTH STORY — flows below the portrait ── */}
+      <div className="h1-story-section">
+        {storyParagraphs.map((p) => (
+          <p key={p.slice(0, 20)}>{p}</p>
+        ))}
       </div>
 
       {/* Bottom accent strip */}
