@@ -5,6 +5,7 @@ import { initializeGame, checkMatch } from '../services/memory/memoryLogic';
 import MemoryGrid from '../components/memory/MemoryGrid';
 import MemoryControls from '../components/memory/MemoryControls';
 import MemoryScoreboard from '../components/memory/MemoryScoreboard';
+import GameNav from '../components/GameNav';
 
 const MemoryGame = () => {
   const [gridSize, setGridSize] = useState(4);
@@ -91,6 +92,7 @@ const MemoryGame = () => {
 
   return (
     <div className="memory-game-page" style={{backgroundImage: `url(${backgroundImage})`}}>
+      <GameNav current="/memory-game" />
       <div className="memory-game-container">
         <h1>Memory Game</h1>
         

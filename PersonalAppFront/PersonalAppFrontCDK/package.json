@@ -11,6 +11,8 @@
     "cdk": "cdk"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
     "@babel/preset-env": "^7.25.0",
     "@babel/preset-react": "^7.25.0", 
     "@eslint/js": "^9.15.0",

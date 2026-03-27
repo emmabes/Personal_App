@@ -4,6 +4,7 @@ import backgroundImage from '../assets/Solid-Black-Website-Background.jpg';
 import { getRandomFood, getNextHead, checkCollision } from '../services/snake/snakeLogic';
 import SnakeGrid from '../components/snake/SnakeGrid';
 import SnakeScoreboard from '../components/snake/SnakeScoreboard';
+import GameNav from '../components/GameNav';
 
 const GRID_SIZE = 20;
 const INITIAL_SNAKE = [{ x: 10, y: 10 }, { x: 10, y: 11 }, { x: 10, y: 12 }];
@@ -120,6 +121,7 @@ const SnakeGame = () => {
 
   return (
     <div className="snake-game-page" style={{backgroundImage: `url(${backgroundImage})`}}>
+      <GameNav current="/snake-game" />
       <div className="snake-game-container">
         <h1>Snake</h1>
 

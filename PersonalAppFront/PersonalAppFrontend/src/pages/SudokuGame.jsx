@@ -5,6 +5,7 @@ import { generateSudoku, checkBoard, getPossibleValues } from '../services/sudok
 import SudokuGrid from '../components/sudoku/SudokuGrid';
 import NumberPad from '../components/sudoku/NumberPad';
 import { iconList } from '../services/ttc/iconService';
+import GameNav from '../components/GameNav';
 
 const SudokuGame = () => {
   const [puzzle, setPuzzle] = useState([]);
@@ -146,6 +147,7 @@ const SudokuGame = () => {
 
   return (
     <div className="sudoku-game-page" style={{backgroundImage: `url(${backgroundImage})`}}>
+      <GameNav current="/sudoku-game" />
       <div className="sudoku-game-container">
         <h1>Sudoku</h1>
 

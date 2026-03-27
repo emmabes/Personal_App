@@ -187,7 +187,9 @@ export class PersonalAppFrontendStack extends Stack {
     this.cfSigningKeyPairId = cfSigningPublicKey.ref;
 
     new CfnSecret(this, `CfKeyPairIdSecret-${environment.deployment}`, {
-      name: 'personal_app_cf_key_pair_id',
+      name: environment.deployment === 'prod'
+        ? 'personal_app_cf_key_pair_id'
+        : `personal_app_cf_key_pair_id-${environment.deployment}`,
       secretString: cfSigningPublicKey.ref,
     });
 

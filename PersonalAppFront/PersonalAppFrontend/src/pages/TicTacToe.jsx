@@ -8,6 +8,7 @@ import PlayerBox from "../components/ttc/PlayerBox";
 import GameControls from "../components/ttc/GameControls";
 import GameOverlay from "../components/ttc/GameOverlay";
 import Instructions from "../components/ttc/Instructions";
+import GameNav from '../components/GameNav';
 
 function TicTacToe() {
   const [board, setBoard] = useState(Array(9).fill(null));
@@ -104,6 +105,7 @@ function TicTacToe() {
 
   return (
     <div className="tic-tac-toe-page" style={{backgroundImage: `url(${backgroundImage})`}}>
+      <GameNav current="/tic-tac-toe" />
       <div className="game-container">
         <h1>Tic Tac Toe</h1>
         <div className="instructions-label" onClick={() => setShowInstructions(true)}>
