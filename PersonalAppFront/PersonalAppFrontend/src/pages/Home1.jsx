@@ -62,9 +62,10 @@ function Home1() {
           {/* CTAs — immediately accessible */}
           <div className="h1-cta">
             <div className="h1-btn-row">
-              <button className="h1-btn h1-cyan"   onClick={() => navigate('/resume')}>Resume</button>
-              <button className="h1-btn h1-orange"  onClick={() => navigate('/tic-tac-toe')}>Games<br />(For Fun!)</button>
-              <button className="h1-btn h1-blue"    onClick={() => navigate('/about')}>About Me</button>
+              <button className="h1-btn h1-blue"   onClick={() => navigate('/resume')}>Resume</button>
+              <button className="h1-btn h1-pink"  onClick={() => navigate('/tic-tac-toe')}>Games<br />(For Fun!)</button>
+              <button className="h1-btn h1-green"    onClick={() => navigate('/about')}>About Me</button>
+              <button className="h1-btn h1-yellow"   onClick={() => navigate('/why-hire')}>Value<br />Proposition</button>
             </div>
             <div className="h1-love-row">
               <Motivator />

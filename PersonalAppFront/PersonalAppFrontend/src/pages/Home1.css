@@ -155,6 +155,12 @@
 .h1-cyan   { background: #00AACC; }
 .h1-orange { background: #CC5500; }
 .h1-blue   { background: #3311CC; }
+.h1-green  { background: #007744; }
+
+/* ── Value Prop button — swap these onto .h1-green to test ── */
+.h1-teal   { background: #007B8A; }  /* muted cyan-teal */
+.h1-yellow { background: #AA8800; }  /* amber-gold */
+.h1-pink   { background: #BB1166; }  /* cyber magenta */
 
 .h1-love-row {
   display: flex;
@@ -378,7 +384,6 @@
     flex: none;
     width: 100%;
   }
-  .h1-btn-row .h1-btn:last-child { grid-column: span 2; }
   .h1-btn { padding: 0.95rem 0; min-height: 48px; }
 
   .h1-love-row {
@@ -423,5 +428,4 @@
   .h1-story-body p { font-size: 0.88rem; }
 
   .h1-btn-row { grid-template-columns: 1fr; }
-  .h1-btn-row .h1-btn:last-child { grid-column: span 1; }
 }
