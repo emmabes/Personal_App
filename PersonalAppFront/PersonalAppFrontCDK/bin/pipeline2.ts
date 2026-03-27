@@ -41,7 +41,7 @@ export class FrontendPipelineStack extends cdk.Stack {
       effect: Effect.ALLOW,
       actions: ["secretsmanager:GetSecretValue"],
       resources: [
-        `arn:aws:secretsmanager:${this.region}:${this.account}:secret:personal_app_frontend_pipeline_token-${environment.deployment}`,
+        `arn:aws:secretsmanager:${this.region}:${this.account}:secret:personal_app_frontend_pipeline_token`,
       ],
     });
     const buildProject = new PipelineProject(this, `PersAppFront-${environment.deployment}`, {
