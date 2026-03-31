@@ -16,19 +16,25 @@ class BackendStage(Stage):
         PersonalAppBackCDKStack(self, 'BackendStack', env_config=env_config)
 
 class BackendPipelineStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, cdk_env: str = 'prod', **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        env_config = _ENVIRONMENTS[cdk_env]
+        branch = env_config['branch']
 
         pipeline = CodePipeline(
             self, 'Pipeline',
-            pipeline_name='PersonalAppBackendPipeline',
+            pipeline_name=f'PersonalAppBackendPipeline-{cdk_env}',
             synth=ShellStep(
                 'Synth',
                 input=CodePipelineSource.git_hub(
                     'emmabes/Personal_App',
-                    'main',
+                    branch,
                     authentication=SecretValue.secrets_manager('personal_app_frontend_pipeline_token')
                 ),
+                # CDK_ENV must be passed explicitly — CodeBuild runs in detached HEAD
+                # so git branch detection in app.py won't work during self-mutation.
+                env={'CDK_ENV': cdk_env},
                 commands=[
                     'cd PersonalAppBack/PersonalAppBackCDK',
                     'pip install -r requirements.txt',
@@ -40,7 +46,7 @@ class BackendPipelineStack(Stack):
         )
 
         pipeline.add_stage(BackendStage(
-            self, 'Production',
-            env_config=_ENVIRONMENTS['prod'],
+            self, cdk_env.capitalize(),
+            env_config=env_config,
             env=kwargs.get('env')
         ))

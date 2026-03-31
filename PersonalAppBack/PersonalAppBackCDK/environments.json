@@ -2,17 +2,46 @@
     "dev": {
         "domainNames": ["dev.erikmabes.com"],
         "envSuffix": "dev",
-        "apiDomain": "api-dev.erikmabes.com",
-        "dbName": "portfolio-dev",
+        "branch": "dev",
         "cf_domain": "dev.erikmabes.com",
-        "resource_path": "private/resume.pdf"
+        "resource_path": "private/resume.pdf",
+        "cognito_user_pool_name": "personal-app-user-pool-dev",
+        "cognito_domain_prefix": "erikmabes-auth-dev",
+        "cognito_callback_urls": ["https://dev.erikmabes.com/callback"],
+        "cognito_logout_urls": ["https://dev.erikmabes.com/"],
+        "cors_origins": ["https://dev.erikmabes.com"]
+    },
+    "sandbox": {
+        "domainNames": ["sandbox.erikmabes.com"],
+        "envSuffix": "sandbox",
+        "branch": "sandbox",
+        "cf_domain": "sandbox.erikmabes.com",
+        "resource_path": "private/resume.pdf",
+        "cognito_user_pool_name": "personal-app-user-pool-sandbox",
+        "cognito_domain_prefix": "erikmabes-auth-sandbox",
+        "cognito_callback_urls": ["https://sandbox.erikmabes.com/callback"],
+        "cognito_logout_urls": ["https://sandbox.erikmabes.com/"],
+        "cors_origins": ["https://sandbox.erikmabes.com"]
     },
     "prod": {
         "domainNames": ["erikmabes.com", "www.erikmabes.com", "ericmabes.com", "www.ericmabes.com"],
         "envSuffix": "prod",
-        "apiDomain": "api.erikmabes.com",
-        "dbName": "portfolio-prod",
+        "branch": "main",
         "cf_domain": "erikmabes.com",
-        "resource_path": "private/resume.pdf"
+        "resource_path": "private/resume.pdf",
+        "cognito_user_pool_name": "personal-app-user-pool",
+        "cognito_domain_prefix": "erikmabes-auth",
+        "cognito_callback_urls": [
+            "https://erikmabes.com/callback",
+            "https://www.erikmabes.com/callback"
+        ],
+        "cognito_logout_urls": [
+            "https://erikmabes.com/",
+            "https://www.erikmabes.com/"
+        ],
+        "cors_origins": [
+            "https://erikmabes.com",
+            "https://www.erikmabes.com"
+        ]
     }
 }

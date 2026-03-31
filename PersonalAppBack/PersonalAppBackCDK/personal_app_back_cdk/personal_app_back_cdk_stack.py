@@ -22,14 +22,17 @@ class PythonLocalBundling:
         source_dir = os.path.join(
             os.path.dirname(__file__), "..", "lambda_funcs", "sign_url"
         )
-        subprocess.check_call([
-            "pip", "install", "cryptography", "cffi",
-            "--platform", "manylinux2014_x86_64",
-            "--implementation", "cp",
-            "--python-version", "312",
-            "--only-binary=:all:",
-            "-t", output_dir, "-q",
-        ])
+        subprocess.check_call(
+            [
+                "pip", "install", "cryptography", "cffi",
+                "--platform", "manylinux2014_x86_64",
+                "--implementation", "cp",
+                "--python-version", "312",
+                "--only-binary=:all:",
+                "-t", output_dir, "-q",
+            ],
+            env={**os.environ, "PIP_USER": "0"},
+        )
         for item in os.listdir(source_dir):
             src = os.path.join(source_dir, item)
             dst = os.path.join(output_dir, item)
@@ -87,7 +90,7 @@ class PersonalAppBackCDKStack(Stack):
         # --- Cognito Identity Infrastructure (Phase 1) ---
         user_pool = cognito.UserPool(
             self, "UserPool",
-            user_pool_name="personal-app-user-pool",
+            user_pool_name=env_config.get("cognito_user_pool_name", "personal-app-user-pool"),
             self_sign_up_enabled=True,
             user_verification=cognito.UserVerificationConfig(
                 email_subject="Verify your email for ErikMabes.com",
@@ -118,24 +121,24 @@ class PersonalAppBackCDKStack(Stack):
                     authorization_code_grant=True
                 ),
                 scopes=[cognito.OAuthScope.OPENID, cognito.OAuthScope.EMAIL, cognito.OAuthScope.PROFILE],
-                callback_urls=[
+                callback_urls=env_config.get("cognito_callback_urls", [
                     "https://erikmabes.com/callback",
                     "https://www.erikmabes.com/callback",
-                ],
-                logout_urls=[
+                ]),
+                logout_urls=env_config.get("cognito_logout_urls", [
                     "https://erikmabes.com/",
                     "https://www.erikmabes.com/",
-                ]
+                ])
             ),
             read_attributes=cognito.ClientAttributes()
-                .with_standard_attributes(cognito.StandardAttributesMask(email=True))
+                .with_standard_attributes(email=True)
                 .with_custom_attributes("access_expiry"),
         )
 
         user_pool.add_domain(
             "UserPoolDomain",
             cognito_domain=cognito.CognitoDomainOptions(
-                domain_prefix="erikmabes-auth"
+                domain_prefix=env_config.get("cognito_domain_prefix", "erikmabes-auth")
             )
         )
 
@@ -222,7 +225,7 @@ class PersonalAppBackCDKStack(Stack):
 
         # CORS preflight for the /sign-url resource
         sign_url_resource.add_cors_preflight(
-            allow_origins=["https://erikmabes.com", "https://www.erikmabes.com"],
+            allow_origins=env_config.get("cors_origins", ["https://erikmabes.com", "https://www.erikmabes.com"]),
             allow_methods=["GET", "OPTIONS"],
             allow_headers=["content-type", "authorization"], # Added authorization header for JWT
         )
