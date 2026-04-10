@@ -38,7 +38,7 @@ const jobs = [
   {
     id: 'tkm-director',
     company: 'TKM Restaurants, Inc.',
-    role: 'Director of Operations',
+    role: 'Operations Manager',
     dates: 'Feb 2025 – Present',
     bullets: [
       'Built Python-based report consolidators, generators, payroll automators, and data mapping tools actively used in daily business operations',

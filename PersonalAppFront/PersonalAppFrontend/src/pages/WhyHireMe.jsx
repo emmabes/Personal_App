@@ -29,7 +29,7 @@ const pillars = [
     statSub: 'Service Industry Direct Reports',
     headline: 'Still Writing the Code',
     body: 'I lead a 63-person hospitality team while shipping production Python tooling that supports ownership and administration — from planning and decision-making through implementation and review. That range is the point: I think in architecture, execute in detail, and never lose sight of the people the system serves.',
-    chips: ['Director of Operations', 'Lean Six Sigma', 'React', 'AWS CDK', 'TypeScript'],
+    chips: ['Operations Manager', 'Lean Six Sigma', 'React', 'AWS CDK', 'TypeScript'],
   },
 ];
 

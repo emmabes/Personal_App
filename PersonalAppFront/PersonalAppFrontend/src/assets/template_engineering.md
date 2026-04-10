@@ -76,7 +76,7 @@ Amazon.com | Staffing Ambassador | Mar 2020 – Feb 2021
 - Reduced team weekly hours from ~120 to under 60; automation saved $30,000 annually per field team and $210,000 annually after training additional teams
 - Supported record launch of 13 sites in 4 months through process optimization and auditing
 
-TKM Restaurants, Inc. | Director of Operations | Feb 2025 – Present
+TKM Restaurants, Inc. | Operations Manager | Feb 2025 – Present
 - Built Python-based report consolidators, generators, payroll automators, and data mapping tools actively used in daily business operations
 - Integrated with Silverware POS APIs, vendor APIs, and automated reporting systems to improve managerial and administrative workflows
 - Developed a central KPI dashboard using Python data collection/processing, Excel, and Power Query
